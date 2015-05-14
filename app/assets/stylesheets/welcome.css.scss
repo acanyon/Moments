@@ -1,0 +1,112 @@
+$green-gray: #E8EDDF;
+$bright-green: #8CAE68;
+$muted-green: #B6C8A9;
+$baby-blue: #C7DBE6;
+
+$text-dark-gray: #41463D;
+
+body {
+    background-color: $green-gray;
+    color: $text-dark-gray;
+}
+
+.body_container {
+
+    .panel {
+        .panel_content {
+            margin: 0 auto;
+            width: 950px;
+        }
+    }
+
+    .header {
+        background-color: white; // lighten($green-gray, 5%);
+        padding: 30px 0 17px 0;
+
+        h1 {
+            @include user-select(none);
+            cursor: default;
+            color: darken($bright-green, 15%);
+            float: left;
+            font-size: 27px;
+            margin: 0;
+        }
+
+        .header_links {
+            float: right;
+            margin-top: 8px;
+            a {
+                color: $bright-green;
+                text-decoration: none;
+                margin-top: 30px;
+                padding: 0 10px;
+                &:last-child {
+                    padding: 0 0 0 10px;
+                }
+                &:hover {
+                    color: darken($bright-green, 15%);
+                }
+            
+            }
+        }
+    }
+
+    .hero_container {
+        background-image: image-url("v1/single-bike.jpg");
+        background-position: center;
+        background-size: cover;
+        border-top: 3px solid darken($green-gray, 20%);
+        border-bottom: 3px solid darken($green-gray, 20%);
+        height: 430px;
+    }
+
+    .about {
+        .about_tile {
+            box-sizing: border-box;
+            float: left;
+            padding: 10px;
+            width: 33.33%;
+        }
+            
+        .wrapper {
+            background-color: white;
+            border-radius: 5px;
+            padding: 25px 20px;
+        }
+
+        .heading {
+            font-weight: 600;
+            text-align: center;
+            text-transform: uppercase;
+            &::after {
+              border-radius: 20px;
+              border: 2px solid $baby-blue;
+              color: $baby-blue;
+              content: "!";
+              display: block;
+              height: 20px;
+              line-height: 20px;
+              margin: 15px auto 20px;
+              width: 20px;
+            }
+        }
+    }
+
+    .footer {
+        color: lighten($text-dark-gray, 15%);
+        font-size: 12px;
+        padding: 20px 0 60px 0;
+        text-align: right;
+        text-transform: uppercase;
+    }
+
+    .clearfix::after { 
+       content: "."; 
+       visibility: hidden; 
+       display: block; 
+       height: 0; 
+       clear: both;
+    }
+
+}
+
