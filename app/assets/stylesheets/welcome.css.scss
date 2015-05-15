@@ -8,6 +8,7 @@ $text-dark-gray: #41463D;
 body {
     background-color: $green-gray;
     color: $text-dark-gray;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
 }
 
 .body_container {
@@ -35,18 +36,39 @@ body {
         .header_links {
             float: right;
             margin-top: 8px;
-            a {
-                color: $bright-green;
-                text-decoration: none;
-                margin-top: 30px;
-                padding: 0 10px;
-                &:last-child {
-                    padding: 0 0 0 10px;
+            .header_link {
+                display: inline-block;
+                font-size: 10px;
+                font-weight: 100;
+                letter-spacing: 2px;
+                margin: -21px 0;
+                padding: 10px 15px;
+                text-transform: uppercase;
+
+                a {
+                    color: $bright-green;
+                    text-decoration: none;
                 }
-                &:hover {
-                    color: darken($bright-green, 15%);
+
+                &::after {
+                    @include transition(all 200ms);
+                    border-bottom: 4px solid transparent;
+                    content: '';
+                    display: block;
+                    margin: 23px -25% -40px;
+                    width: 150%;
                 }
-            
+
+                &:last-child { padding: 0 0 0 15px; }
+                &:hover { 
+                    a { color: darken($bright-green, 15%); }
+
+                    &::after {
+                      border-bottom: 4px solid darken($bright-green, 15%);
+                    }
+
+                }
+           
             }
         }
     }
@@ -61,6 +83,9 @@ body {
     }
 
     .about {
+        margin: 40px 0;
+        text-align: center;
+
         .about_tile {
             box-sizing: border-box;
             float: left;
@@ -76,20 +101,29 @@ body {
 
         .heading {
             font-weight: 600;
-            text-align: center;
             text-transform: uppercase;
             &::after {
-              border-radius: 20px;
-              border: 2px solid $baby-blue;
               color: $baby-blue;
-              content: "!";
+              content: "\f041";
               display: block;
-              height: 20px;
-              line-height: 20px;
+              font-family: FontAwesome;
+              font-size: 40px;
               margin: 15px auto 20px;
-              width: 20px;
+            }
+
+            &.user::after {
+                content: '\f007';
+            }
+
+            &.tachometer::after {
+                content: '\f0e4';
+            }
+
+            &.cog::after {
+                content: '\f085';
             }
         }
+
     }
 
     .footer {
