@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.2'
 gem 'bourbon'
 gem 'normalize-rails'
+gem 'font-awesome-rails'
 
 # Use Angular.js
 gem 'angularjs-rails'
