@@ -59,8 +59,7 @@ body {
                 }
 
                 &::after {
-                    @include transition-delay(background-color 100ms);
-                    @include transition(border 200ms, background-color 100ms);
+                    @include transition(border 100ms, background 100ms);
                     border-bottom: 4px solid transparent;
                     content: '';
                     display: block;
@@ -78,8 +77,8 @@ body {
                     }
 
                     &::after {
+                        @include linear-gradient(rgba(#fff, 0.0), rgba(#fff, 0.3), rgba(#fff, 0.6), rgba(#fff, 0.6));
                         border-bottom: 4px solid darken($bright-green, 15%);
-                        background-color: rgba(white, 0.6);
                     }
 
                 }
@@ -90,27 +89,38 @@ body {
 
     .hero_container {
         border-bottom: 3px solid darken($green-gray, 20%);
-        height: 430px;
+        height: 470px;
         position: relative;
 
         .sign_up_form {
-            bottom: 50px;
+            bottom: 70px;
             left: 0;
             position: absolute;
             right: 0;
             text-align: center;
             z-index: 1;
 
+            .signup_copy {
+                color: rgba($text-dark-gray, 0.8);
+                font-size: 13px;
+                letter-spacing: 1px;
+                margin: 0 auto;
+                padding-bottom: 10px;
+                text-align: left;
+                width: 500px;
+            }
+
             .email_input, .zip_input {
-                @include placeholder { color: lighten($text-dark-gray, 20%); }
+                @include placeholder { font-weight: 200;  color: lighten($text-dark-gray, 20%); }
                 background: rgba($green-gray, 0.7);
+                border-radius: 2px;
                 border: none;
-                outline: none;
-                padding: 5px 20px;
+                box-sizing: border-box;
                 color: $text-dark-gray;
                 height: 40px;
-                box-sizing: border-box;
-                border-radius: 2px;
+                outline: none;
+                padding: 5px 20px;
+
                 &:focus {
                     background: rgba($green-gray, 0.9);
                 }
@@ -120,14 +130,49 @@ body {
             .zip_input { text-align: center; width: 100px; }
 
             button {
-                border: none;
-                height: 40px;
-                border-radius: 2px;
-                box-sizing: border-box;
-                padding: 10px 20px;
+                @include transition(background 200ms, font-weight 200ms);
                 background-color: saturate($bright-green, 25%);
-                margin-left: 10px;
+                border-radius: 2px;
+                border: none;
+                box-sizing: border-box;
                 color: white;
+                height: 40px;
+                margin-left: 10px;
+                opacity: 1;
+                padding: 10px 20px;
+
+                &::after {
+                    @include transition(padding 200ms);
+                    content: '\f105';
+                    display: inline-block;
+                    font-family: FontAwesome;
+                    padding-left: 10px;
+                }
+
+                &:disabled {
+                    color: darken(white, 5%);
+                    background-color: saturate($bright-green, 20%);
+                    opacity: 0.9;
+                }
+
+                &:enabled:hover {
+                    background-color: saturate($bright-green, 30%);
+                    border: 1px solid saturate($bright-green, 40%);
+                    &::after { padding-left: 15px;}
+                }
+
+                &:active {
+                    @include transition(background 10ms);
+                    background-color: saturate($bright-green, 20%);
+                    border: 1px solid saturate($bright-green, 20%);
+                }
+
+                &:focus {
+                    box-shadow: 0 1px 10px lighten($bright-green, 10%);
+                    border: 1px solid saturate($bright-green, 40%);
+                    outline: none;
+                }
+
             }
         }
 
@@ -160,11 +205,12 @@ body {
                 width: 33.3%;
 
                 &.panel_one {}
-                &.panel_two { background: blue; }
-                &.panel_three { background: pink; }
+                &.panel_two {}
+                &.panel_three {}
             }
 
             .headline {
+                color: darken($text-dark-gray, 5%);
                 text-transform: uppercase;
                 letter-spacing: 6px;
                 font-weight: 600;
