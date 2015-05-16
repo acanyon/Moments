@@ -59,7 +59,7 @@ body {
                 }
 
                 &::after {
-                    @include transition(border 100ms, background 100ms);
+                    @include transition(background 100ms);
                     border-bottom: 4px solid transparent;
                     content: '';
                     display: block;
@@ -77,7 +77,8 @@ body {
                     }
 
                     &::after {
-                        @include linear-gradient(rgba(#fff, 0.0), rgba(#fff, 0.3), rgba(#fff, 0.6), rgba(#fff, 0.6));
+                        @include transition(border 100ms, background 100ms);
+                        @include linear-gradient(rgba(#fff, 0.0), rgba(#fff, 0.5), rgba(#fff, 0.7), rgba(#fff, 0.7));
                         border-bottom: 4px solid darken($bright-green, 15%);
                     }
 
@@ -101,12 +102,12 @@ body {
             z-index: 1;
 
             .signup_copy {
-                color: rgba($text-dark-gray, 0.8);
                 font-size: 13px;
                 letter-spacing: 1px;
                 margin: 0 auto;
                 padding-bottom: 10px;
                 text-align: left;
+                text-shadow: 1px -1px 5px rgba(white, 0.4);
                 width: 500px;
             }
 
@@ -147,6 +148,7 @@ body {
                     display: inline-block;
                     font-family: FontAwesome;
                     padding-left: 10px;
+                    width: 6px;
                 }
 
                 &:disabled {
@@ -194,7 +196,7 @@ body {
             z-index: -1;
 
             &>div {
-                background-image: image-url("v1/single-bike.jpg");
+                background-color: #FFFEEB;
                 background-position: center;
                 background-size: cover;
                 box-sizing: border-box;
@@ -204,19 +206,19 @@ body {
                 height: 100%;
                 width: 33.3%;
 
-                &.panel_one {}
-                &.panel_two {}
-                &.panel_three {}
+                &.panel_one { background-image: image-url("v1/o-BIKE-CITY.jpg"); }
+                &.panel_two { background-image: image-url("v1/single-bike.jpg"); }
+                &.panel_three { background-image: image-url("v1/NiceRideMinnesota.jpg"); }
             }
 
             .headline {
-                color: darken($text-dark-gray, 5%);
+                color: darken($text-dark-gray, 10%);
                 text-transform: uppercase;
                 letter-spacing: 6px;
                 font-weight: 600;
                 font-size: 42px;
                 width: 540px;
-                text-shadow: 1px 1px 10px rgba(white, 0.2);
+                text-shadow: 1px -1px 10px rgba(white, 0.4);
             }
 
             .subheader {
