@@ -15,9 +15,6 @@ gem 'bourbon'
 gem 'normalize-rails'
 gem 'font-awesome-rails'
 
-# Use Angular.js
-gem 'angularjs-rails'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
