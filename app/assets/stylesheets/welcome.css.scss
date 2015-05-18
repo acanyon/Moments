@@ -1,4 +1,4 @@
-$green-gray: #E8EDDF;
+$green-gray: #F6F7F1;
 $baby-blue: #C7DBE6;
 $bright-green: #8CAE68;
 $muted-green: #B6C8A9;
@@ -99,7 +99,7 @@ body {
     }
 
     .hero_container {
-        border-bottom: 3px solid darken($green-gray, 20%);
+        border-bottom: 3px solid rgba(darken($green-gray, 20%), 0.7);
         height: 470px;
         position: relative;
 
