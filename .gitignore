@@ -14,3 +14,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+
+# Phonegap iOS
+*.mode1v3
+*.perspectivev3
+*.pbxuser
+.DS_Store
+build/
