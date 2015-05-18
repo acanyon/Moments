@@ -14,11 +14,11 @@
 
         <div class="panel_content sign_up_form">
             <div class="signup_copy">Be the first in your city.</div>
-            <form>
-                <input class="email_input" placeholder=" jane@citycruzer.com">
-                <input class="zip_input" placeholder="zip" maxlength="5">
+            <%= form_tag(subscribe_mailinglist_url, remote: true) do %>
+                <input name="email" class="email_input" placeholder=" jane@citycruzer.com">
+                <input name="zipcode" class="zip_input" placeholder="zip" maxlength="5">
                 <button type="submit" disabled="disabled">Join Us</button>
-            </form>
+            <% end %>
         </div>
 
         <div class="hero_panels_wrapper"><div class="hero_panels">
