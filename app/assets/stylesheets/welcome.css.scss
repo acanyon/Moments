@@ -198,7 +198,7 @@ body {
         .hero_panels_wrapper {
             bottom: 0;
             left: 0;
-            overflow: scroll;
+            overflow: hidden;
             position: absolute;
             right: 0;
             top: 0;
@@ -209,6 +209,7 @@ body {
             height: 100%;
             position: absolute;
             top: 0;
+            left: 0;
             width: 300%;
             z-index: -1;
 
@@ -227,6 +228,8 @@ body {
                 &.panel_two { background-image: image-url("v1/single-bike.jpg"); }
                 &.panel_three { background-image: image-url("v1/NiceRideMinnesota.jpg"); }
             }
+
+            &.animate { @include transition(left 500ms ease-out); }
 
             .headline {
                 color: darken($text-dark-gray, 10%);
