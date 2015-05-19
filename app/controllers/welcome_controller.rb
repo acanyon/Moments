@@ -8,8 +8,8 @@ class WelcomeController < ActionController::Base
         user.zipcode = user.zipcode || params[:zipcode]
 
         mailchimp = Mailchimp::API.new(ENV['MAILCHIMP_API_KEY'])
-        # subscribe to list, type: html, doube_optin=false, welcome_email=true
-        mailchimp.lists.subscribe(ENV['MAILCHIMP_LIST_ID'], {email: params[:email]}, nil, 'html', false, false, true, true)
+        # subscribe to list, type: html, doube_optin=false, welcome_email=false
+        mailchimp.lists.subscribe(ENV['MAILCHIMP_LIST_ID'], {email: params[:email]}, nil, 'html', false, false, true, false)
 
         user.save!
 
