@@ -40,6 +40,12 @@ end
 # Use debugger
 gem 'pry', group: [:development, :test]
 
+# email - Mailchimp
+gem 'mailchimp-api', require: 'mailchimp'
+
+
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
