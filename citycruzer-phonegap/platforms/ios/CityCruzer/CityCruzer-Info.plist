@@ -178,5 +178,24 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
+    <key>Google Maps API Key</key>
+    <string>AIzaSyBAszvlt0DhKh1VFYtQ70qVtUvaZe3Hte8</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Show your location on the map</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Trace your location on the map</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>com.citycruzer.client</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.citycruzer.client</string>
+        </array>
+      </dict>
+    </array>
   </dict>
 </plist>

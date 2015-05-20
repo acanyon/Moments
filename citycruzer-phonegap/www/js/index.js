@@ -1,50 +1,69 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+"use strict" ;
+
+var map;
+var MAP_CONF = {
+    'center': {
+        'lat': 37.7833, 'lng': -122.4167, // san francisco
+        'zoom': 12
+    },
+
+    'markers': [
+        { 'lat': 37.7966021, 'lng': -122.4233821 },
+        { 'lat': 37.7958912, 'lng': -122.4227504 }
+    ]
+};
+
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+    onDeviceReady: function () {
+        var camera_conf = MAP_CONF.center;
+        var map_canvas = document.getElementById("map_canvas");
+        var map_options = {
+                'camera': {
+                  'latLng': new plugin.google.maps.LatLng(camera_conf.lat, camera_conf.lng),
+                  'zoom': camera_conf.zoom
+                }
+            };
+
+        // Initialize the map view
+        map = plugin.google.maps.Map.getMap(map_canvas, map_options);
+
+        // Wait until the map is ready status.
+        map.addEventListener(plugin.google.maps.event.MAP_READY, app.onMapReady);
     },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    onMapReady: function () {
+        var button = document.getElementById("button");
+        button.addEventListener("click", app.onBtnClicked, false);
 
-        console.log('Received Event: ' + id);
+        // add markers
+        var i;
+        var marker;
+        for (i = 0 ; i < MAP_CONF.markers.length ; i++) {
+            marker = MAP_CONF.markers[i];
+            map.addMarker({
+                'position': new plugin.google.maps.LatLng(marker.lat, marker.lng),
+                'animation': plugin.google.maps.Animation.DROP
+            });
+        }
+    },
+
+    onBtnClicked: function () {
+        map.showDialog();
     }
 };
 
