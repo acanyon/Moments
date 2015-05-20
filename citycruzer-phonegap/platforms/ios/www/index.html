@@ -38,7 +38,30 @@
         <title>Hello World</title>
 
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/lib/require.js"></script>
+        <script>
+            requirejs.config({
+                baseUrl: "js",
+                paths: {
+                    jquery: 'lib/jquery-2.1.4.min',
+//                  currently not using. if using, include css/lib/jquery-*
+//                    jquery-ui: 'lib/jquery-ui-1.11.4.min',
+//                    jquery-mobile: 'lib/jquery.mobile-1.4.5.min',
+                    underscore: 'lib/underscore-min-1.8.3',
+
+                    backbone: 'lib/backbone-min-1.2.0',
+                }
+            });
+
+            // define base dependencies
+            requirejs(['jquery', 'underscore', 'backbone'], function () {
+
+                // bootstrap app
+                requirejs(['map_config', 'map', 'app'], function (noop, noop2, app) {
+                    app.initialize();
+                });
+            });
+        </script>
 
     </head>
     <body>
