@@ -57,7 +57,7 @@
             requirejs(['jquery', 'underscore', 'backbone'], function () {
 
                 // bootstrap app
-                requirejs(['app'], function (app) {
+                requirejs(['map_config', 'app'], function (noop, app) {
                     app.initialize();
                 });
             });
