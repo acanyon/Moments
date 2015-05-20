@@ -54,13 +54,12 @@ define(function (require) {
             // add markers
             var i;
             var marker;
-            for (i = 0 ; i < MAP_CONF.markers.length ; i++) {
-                marker = MAP_CONF.markers[i];
+            _.each(MAP_CONF.markers, function (marker) {
                 map.addMarker({
                     'position': new plugin.google.maps.LatLng(marker.lat, marker.lng),
                     'animation': plugin.google.maps.Animation.DROP
                 });
-            }
+            });
         },
 
         onBtnClicked: function () {
