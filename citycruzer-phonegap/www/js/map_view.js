@@ -5,10 +5,9 @@ var MapView = Backbone.View.extend({
         'tap .list_view_toggle': '_handleListviewShow',
     },
 
-    initialize: function () {
-        var camera_conf = MAP_CONF.center;
-        this.markers = MAP_CONF.markers;
-
+    initialize: function (options) {
+        var camera_conf = options.map_config.center;
+        this.markers = options.map_config.markers;
         var map_options = {
             'camera': {
               'latLng': new plugin.google.maps.LatLng(camera_conf.lat, camera_conf.lng),
@@ -47,5 +46,6 @@ var MapView = Backbone.View.extend({
     _onMapReady: function () {
         this.render();
     }
+    
 });
 
