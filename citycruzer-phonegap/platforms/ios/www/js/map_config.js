@@ -1,4 +1,5 @@
 // should later be loaded from server
+//
 var MAP_CONF = {
     'center': {
         'lat': 37.7833, 'lng': -122.4167, // san francisco

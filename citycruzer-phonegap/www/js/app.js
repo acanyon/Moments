@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
 "use strict" ;
 
-var map;
-
-=======
->>>>>>> Stashed changes
 define(function (require) {
     "use strict" ;
     var map;

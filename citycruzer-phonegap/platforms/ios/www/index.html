@@ -46,7 +46,7 @@
                     jquery: 'lib/jquery-2.1.4.min',
 //                  currently not using. if using, include css/lib/jquery-*
 //                    jquery-ui: 'lib/jquery-ui-1.11.4.min',
-//                    jquery-mobile: 'lib/jquery.mobile-1.4.5.min',
+                    jquery_mobile: 'lib/jquery.mobile-1.4.5.min', // includes tap events
                     underscore: 'lib/underscore-min-1.8.3',
 
                     backbone: 'lib/backbone-min-1.2.0',
@@ -54,10 +54,10 @@
             });
 
             // define base dependencies
-            requirejs(['jquery', 'underscore', 'backbone'], function () {
+            requirejs(['jquery', 'jquery_mobile', 'underscore', 'backbone'], function () {
 
                 // bootstrap app
-                requirejs(['map_config', 'map', 'app'], function (noop, noop2, app) {
+                requirejs(['map_config', 'map_view', 'app'], function (noop, noop2, app) {
                     app.initialize();
                 });
             });
@@ -65,8 +65,13 @@
 
     </head>
     <body>
-        <h3>PhoneGap-GoogleMaps-Plugin</h3>
-        <div style="width:100%;height:400px" id="map_canvas"></div>
-        <button id="button">Full Screen</button>
+        <div class="header">CityCruzer</div>
+        <div id="map_canvas">
+            <div class="control_container">
+                <span class="list_view_toggle"></span>
+            </div>
+            
+            <div class="list_view_container"></div>
+        </div>
     </body>
 </html>

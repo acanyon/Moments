@@ -22,3 +22,4 @@
 *.pbxuser
 .DS_Store
 build/
+platforms/
