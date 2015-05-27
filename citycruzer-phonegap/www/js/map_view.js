@@ -15,8 +15,7 @@ var MapView = Backbone.View.extend({
         };
 
         this.marker_info = JSON.parse(window.localStorage.getItem('markers') || '[]');
-        console.log('got markers from local storage ******');
-        console.log(this.marker_info[0]);
+        this._fetchMarkers();
         this.$list_view = this.$('.list_view_container');
 
         // Initialize the map view
@@ -30,24 +29,35 @@ var MapView = Backbone.View.extend({
     },
 
     render: function () {
-        _.each(this.marker_info, _.bind(function (info) {
-            var marker = this.map.addMarker({
-                'position': new plugin.google.maps.LatLng(info.lat, info.lng),
-                'animation': plugin.google.maps.Animation.DROP,
-                'title': info.title
-            }, _.bind(this._handleMarkerClick, this));
-        }, this));
-        var list_html = _.map(this.marker_info, _.bind(function (info) {
-            return '<div class="store_item"><b>' + info.title + '</b>' + '<br/>' + info.snippet + '</div>';
-        }, this)).join('');
-        this.$list_view.html(list_html);
-    },
+        if (this.marker_info.length > 0) {
+            var marker_animation = plugin.google.maps.Animation.DROP;
 
+            // render markers on map
+            this._rendered_markers = _.map(this.marker_info, _.bind(function (info) {
+                return this.map.addMarker({
+                    'position': new plugin.google.maps.LatLng(info.lat, info.lng),
+                    'animation': marker_animation,
+                    'title': info.title,
+                }, _.bind(this._handleMarkerClick, this));
+            }, this));
+
+            // render list view
+            var list_html = _.map(this.marker_info, _.bind(function (info) {
+                return '<div class="store_item"><b>' + info.title + '</b>' + '<br/>' + info.snippet + '</div>';
+            }, this)).join('');
+            this.$list_view.html(list_html);
+        } else {
+            console.log('No Markers Found');
+        }
+    },
 
     _fetchMarkers: function () {
         $.ajax('http://citycruzer.herokuapp.com/api/example.json')
-            .done(function (data, textStatus, jqXHR)) {
-            }).fail(function () {
+            .done(_.bind(function (data, textStatus, jqXHR) {
+                this.marker_info = data.markers;
+                this.render();
+                window.localStorage.addItem('markers', JSON.strigify(data.markers));
+            }, this)).fail(function () {
                 console.error('Unknown Error occurred when trying to fetch data.');
             });
     },

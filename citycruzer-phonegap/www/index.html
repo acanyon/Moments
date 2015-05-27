@@ -38,28 +38,16 @@
         <title>Hello World</title>
 
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.min.css">
+        <script type="text/javascript" src="js/lib/underscore-min-1.8.3.js"></script>
+        <script type="text/javascript" src="js/lib/backbone-min-1.2.0.js"></script>
         <script type="text/javascript" src="js/lib/require.js"></script>
         <script>
-            requirejs.config({
-                baseUrl: "js",
-                paths: {
-                    jquery: 'lib/jquery-2.1.4.min',
-//                  currently not using. if using, include css/lib/jquery-*
-//                    jquery-ui: 'lib/jquery-ui-1.11.4.min',
-                    jquery_mobile: 'lib/jquery.mobile-1.4.5.min', // includes tap events
-                    underscore: 'lib/underscore-min-1.8.3',
-
-                    backbone: 'lib/backbone-min-1.2.0',
-                }
-            });
-
-            // define base dependencies
-            requirejs(['jquery', 'jquery_mobile', 'underscore', 'backbone'], function () {
-
-                // bootstrap app
-                requirejs(['map_config', 'map_view', 'app'], function (noop, noop2, app) {
-                    app.initialize();
-                });
+            requirejs.config({baseUrl: "js"});
+            requirejs(['map_config', 'map_view', 'app'], function (noop, noop2, app) {
+                app.initialize();
             });
         </script>
 
