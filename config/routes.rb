@@ -1,5 +1,8 @@
 Bikeshare::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  devise_for :users
     root 'welcome#index'
 
     post 'subscribe_mailinglist' => 'welcome#subscribe_mailinglist', as: :subscribe_mailinglist
