@@ -1,21 +1,12 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+/* TODO -- update font from CDN (or locally?) */
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('http://fortawesome.github.io/Font-Awesome/assets/font-awesome/fonts/fontawesome-webfont.eot?v=4.3.0');
+    src: url('http://fortawesome.github.io/Font-Awesome/assets/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('http://fortawesome.github.io/Font-Awesome/assets/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('http://fortawesome.github.io/Font-Awesome/assets/font-awesome/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('http://fortawesome.github.io/Font-Awesome/assets/font-awesome/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('http://fortawesome.github.io/Font-Awesome/assets/font-awesome/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -24,26 +15,83 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    background-color: #F6F7F1;
+    color: #41463D;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
     font-size:12px;
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
     width:100%;
 }
+
+.header {
+    background: white;
+    border-bottom: 3px solid rgba(204,210,176,0.7);
+    color: #668346;
+    font-size: 27px;
+    font-weight: 600;
+    padding: 30px 0 15px 30px;
+}
+
+#map_canvas {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+#map_canvas .control_container {
+    bottom: 0;  
+    left: 0;
+    position: absolute;
+    right: 0;
+    margin: 10px 15px;
+}
+
+#map_canvas .list_view_toggle {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 3px;
+    display: inline-block;
+}
+#map_canvas .list_view_toggle::before {
+    padding: 5px;
+    line-height: 20px;
+    font-family: FontAwesome;
+    content: '\f0ca';
+    display: block;
+    font-size: 20px;
+}
+
+#map_canvas .list_view_container {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+#map_canvas .list_view_container.visible {
+    display: block;
+    max-height: 45%;
+    background-color: white;
+    padding-bottom: 50px;
+}
+#map_canvas .store_item {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+#map_canvas .store_item:first-child {
+    padding-top: 20px;
+    border-top: 3px solid rgb(224, 224, 224);
+}
+
+
+
+
+/**** EXAMPLE BELOW ****/
+/***********************/
 
 /* Portrait layout (default) */
 .app {
@@ -67,24 +115,6 @@ body {
         margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
                                       /* offset horizontal: half of image width and text area width */
     }
-}
-
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
 }
 
 .event.listening {
