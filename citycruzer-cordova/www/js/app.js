@@ -22,7 +22,6 @@ define(function (require) {
         // The scope of 'this' is the event. In order to call the 'receivedEvent'
         // function, we must explicitly call 'app.receivedEvent(...);'
         onDeviceReady: function () {
-            console.log(' ****** MAP READY!!! *********');
             var map = new MapView({ el: document.getElementById("map_canvas") });
         },
     };
