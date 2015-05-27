@@ -7,14 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "plugin.google.maps": {
-        "source": {
-            "type": "registry",
-            "id": "phonegap-googlemaps-plugin-master"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "plugin.http.request": {
         "source": {
             "type": "registry",
