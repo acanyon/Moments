@@ -5,7 +5,12 @@ var MapView = Backbone.View.extend({
         'tap .list_view_toggle': '_handleListviewShow',
     },
 
+    default_options: {
+        'camera_conf': { 'lat': 37.7833, 'lng': -122.4167, 'zoom': 13 }, 
+     },
+
     initialize: function (options) {
+        options = _.defaults(options, this.default_options);
         var camera_conf = options.camera_conf;
         var map_options = {
             'camera': {
@@ -14,7 +19,7 @@ var MapView = Backbone.View.extend({
             }
         };
 
-        this.marker_info = JSON.parse(window.localStorage.getItem('markers') || '[]');
+        this.marker_info = []; // JSON.parse(window.localStorage.getItem('markers') || '[]');
         this._fetchMarkers();
         this.$list_view = this.$('.list_view_container');
 

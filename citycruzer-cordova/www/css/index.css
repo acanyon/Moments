@@ -66,11 +66,13 @@ body {
 }
 
 #map_canvas .list_view_container {
-    display: none;
-    position: absolute;
+    border-top: 3px solid rgb(224, 224, 224);
     bottom: 0;
-    right: 0;
+    display: none;
     left: 0;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
 }
 #map_canvas .list_view_container.visible {
     display: block;
@@ -84,7 +86,6 @@ body {
 }
 #map_canvas .store_item:first-child {
     padding-top: 20px;
-    border-top: 3px solid rgb(224, 224, 224);
 }
 
 

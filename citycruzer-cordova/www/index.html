@@ -25,9 +25,10 @@
         <script type="text/javascript" src="js/lib/underscore-min-1.8.3.js"></script>
         <script type="text/javascript" src="js/lib/backbone-min-1.2.0.js"></script>
         <script type="text/javascript" src="js/lib/require.js"></script>
+
         <script>
             requirejs.config({baseUrl: "js"});
-            requirejs(['map_config', 'map_view', 'app'], function (noop, noop2, app) {
+            requirejs(['map_view', 'app'], function (noop, app) {
                 app.initialize();
             });
         </script>
