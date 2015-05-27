@@ -9,6 +9,7 @@ gem 'thin'
 
 # Use Postgres as the database for Active Record
 gem 'pg'
+gem 'activerecord-postgis-adapter' # geo - PostGIS
 
 # Use SCSS and normalize stylesheets
 gem 'sass-rails', '~> 4.0.2'

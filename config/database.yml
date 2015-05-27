@@ -1,10 +1,12 @@
 development:
+  schema_search_path: public, postgis
   adapter:  postgresql
   host:     localhost
   username: user
   database: citycruzer-dev
 
 test:
+  schema_search_path: public, postgis
   adapter:  postgresql
   host:     localhost
   username: user
