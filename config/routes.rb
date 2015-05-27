@@ -4,6 +4,8 @@ Bikeshare::Application.routes.draw do
 
     post 'subscribe_mailinglist' => 'welcome#subscribe_mailinglist', as: :subscribe_mailinglist
 
+    get 'api/example' => 'api#example'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

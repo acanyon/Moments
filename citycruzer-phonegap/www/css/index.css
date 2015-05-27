@@ -74,8 +74,17 @@ body {
 }
 #map_canvas .list_view_container.visible {
     display: block;
-    height: 45%;
+    max-height: 45%;
     background-color: white;
+    padding-bottom: 50px;
+}
+#map_canvas .store_item {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+#map_canvas .store_item:first-child {
+    padding-top: 20px;
+    border-top: 3px solid rgb(224, 224, 224);
 }
 
 

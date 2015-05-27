@@ -22,9 +22,10 @@ define(function (require) {
         // The scope of 'this' is the event. In order to call the 'receivedEvent'
         // function, we must explicitly call 'app.receivedEvent(...);'
         onDeviceReady: function () {
+            window.localStorage.setItem('markers', JSON.stringify(MAP_CONF.markers));
             var map = new MapView({
                 el: document.getElementById("map_canvas"),
-                map_config: MAP_CONF,
+                camera_conf: MAP_CONF.center,
             });
         },
     };
