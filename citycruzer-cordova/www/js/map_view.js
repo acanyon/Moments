@@ -40,15 +40,15 @@ var MapView = Backbone.View.extend({
             // render markers on map
             this._rendered_markers = _.map(this.marker_info, _.bind(function (info) {
                 return this.map.addMarker({
-                    'position': new plugin.google.maps.LatLng(info.lat, info.lng),
+                    'position': new plugin.google.maps.LatLng(info.latitude, info.longitude),
                     'animation': marker_animation,
-                    'title': info.title,
+                    'title': info.name,
                 }, _.bind(this._handleMarkerClick, this));
             }, this));
 
             // render list view
             var list_html = _.map(this.marker_info, _.bind(function (info) {
-                return '<div class="store_item"><b>' + info.title + '</b>' + '<br/>' + info.snippet + '</div>';
+                return '<div class="store_item"><b>' + info.name + '</b>' + '<br/>' + info.address + '</div>';
             }, this)).join('');
             this.$list_view.html(list_html);
         } else {
