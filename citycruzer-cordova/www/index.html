@@ -28,7 +28,7 @@
 
         <script>
             requirejs.config({baseUrl: "js"});
-            requirejs(['map_view', 'app'], function (noop, app) {
+            requirejs(['app', 'map_view', 'bike_shop'], function (app) {
                 app.initialize();
             });
         </script>
@@ -44,4 +44,14 @@
             <div class="list_view_container"></div>
         </div>
     </body>
+
+    <script type="text/template" id="map_pin_template">
+    </script>
+
+    <script type="text/template" id="list_template">
+        <% _.each(markers, function (info) { %>
+            <div class="store_item"><b><%= info.get('name') %></b><br/><%= info.get('address') %></div>
+        <% }); %>
+    </script>
+
 </html>

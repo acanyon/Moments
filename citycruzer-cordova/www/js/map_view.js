@@ -1,6 +1,11 @@
 "use strict";
 
 var MapView = Backbone.View.extend({
+    templates: {
+        map_pin: '#map_pin_template',
+        list_elem: '#list_template'
+    },
+
     events: {
         'tap .list_view_toggle': '_handleListviewShow',
     },
@@ -19,8 +24,10 @@ var MapView = Backbone.View.extend({
             }
         };
 
-        this.marker_info = []; // JSON.parse(window.localStorage.getItem('markers') || '[]');
-        this._fetchMarkers();
+        this.bike_shops = new BikeShops(); // JSON.parse(window.localStorage.getItem('markers') || '[]');
+        this.bike_shops.on('change', _.bind(this.render, this));
+        this.bike_shops.fetch();
+
         this.$list_view = this.$('.list_view_container');
 
         // Initialize the map view
@@ -34,37 +41,28 @@ var MapView = Backbone.View.extend({
     },
 
     render: function () {
-        if (this.marker_info.length > 0) {
+        if (this.bike_shops.length > 0) {
             var marker_animation = plugin.google.maps.Animation.DROP;
 
             // render markers on map
-            this._rendered_markers = _.map(this.marker_info, _.bind(function (info) {
+            this._rendered_markers = _.map(this.bike_shops.models, _.bind(function (shop) {
                 return this.map.addMarker({
-                    'position': new plugin.google.maps.LatLng(info.latitude, info.longitude),
+                    'position': new plugin.google.maps.LatLng(shop.get('latitude'), shop.get('longitude')),
                     'animation': marker_animation,
-                    'title': info.name,
+                    'title': shop.get('name'),
                 }, _.bind(this._handleMarkerClick, this));
             }, this));
 
-            // render list view
-            var list_html = _.map(this.marker_info, _.bind(function (info) {
-                return '<div class="store_item"><b>' + info.name + '</b>' + '<br/>' + info.address + '</div>';
-            }, this)).join('');
-            this.$list_view.html(list_html);
+            this.$list_view.html(
+                    this.render_template('list_elem', {markers: this.bike_shops.models}));
         } else {
             console.log('No Markers Found');
         }
     },
 
-    _fetchMarkers: function () {
-        $.ajax('http://citycruzer.herokuapp.com/api/example.json')
-            .done(_.bind(function (data, textStatus, jqXHR) {
-                this.marker_info = data.markers;
-                this.render();
-                window.localStorage.addItem('markers', JSON.strigify(data.markers));
-            }, this)).fail(function () {
-                console.error('Unknown Error occurred when trying to fetch data.');
-            });
+    render_template: function (template_name, options) {
+        var template = _.template($(this.templates[template_name]).html() || '');
+        return template(options || {});
     },
 
     _onMapReady: function () {
