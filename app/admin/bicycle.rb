@@ -11,6 +11,7 @@ ActiveAdmin.register Bicycle do
         f.input :image
         f.input :description
       end
+      f.actions
     end
 
 # See permitted parameters documentation:
