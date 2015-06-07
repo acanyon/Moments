@@ -1,6 +1,7 @@
 "use strict" ;
 
 var Shop = Backbone.Model.extend({
+
 });
 
 var BikeShops = Backbone.Collection.extend({
