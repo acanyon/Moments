@@ -2,7 +2,6 @@
 
 var MapView = Backbone.View.extend({
     templates: {
-        map_pin: '#map_pin_template',
         list_elem: '#list_template'
     },
 

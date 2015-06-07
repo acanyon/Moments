@@ -10,7 +10,7 @@ var BikeShops = Backbone.Collection.extend({
         $.ajax('http://citycruzer.herokuapp.com/api/example.json')
             .done(_.bind(function (data, textStatus, jqXHR) {
                 _.each(data.markers, function (shop_info) {
-                    this.set(shop_info);
+                    this.add(shop_info);
                 }, this);
                 this.trigger('change');
 //                window.localStorage.addItem('markers', JSON.strigify(data.markers));
