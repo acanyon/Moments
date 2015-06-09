@@ -2,16 +2,21 @@
 
 var MapView = Backbone.View.extend({
     templates: {
-        list_elem: '#list_template'
+        list_elem: '#list_template',
+        bike_shop: '#bike_store_landing',
     },
 
     events: {
-        'tap .list_view_toggle': '_handleListviewShow',
+        // todo - should use "tap" event, but may fire multiple "tap" events with one "click"
+        //   .. need custom event?
+        'click .list_view_toggle': '_handleListviewShow',
+        'click .store_link': '_handleListviewClick',
+        'click .button.back': '_handleLandingBack',
     },
 
     default_options: {
         'camera_conf': { 'lat': 37.7833, 'lng': -122.4167, 'zoom': 13 }, 
-     },
+    },
 
     initialize: function (options) {
         options = _.defaults(options, this.default_options);
@@ -24,18 +29,20 @@ var MapView = Backbone.View.extend({
         };
 
         this.bike_shops = new BikeShops(); // JSON.parse(window.localStorage.getItem('markers') || '[]');
-        this.bike_shops.on('change', _.bind(this.render, this));
+        this.bike_shops.on('sync', _.bind(this.render, this));
         this.bike_shops.fetch();
 
         this.$list_view = this.$('.list_view_container');
+        this.$bike_landing_screen = this.$('.screen.bike_store_landing');
+        this.$map_tooltip = this.$('#map_canvas_tooltip');
 
         // Initialize the map view
-        this.map = plugin.google.maps.Map.getMap(this.el, map_options);
+        this.map = plugin.google.maps.Map.getMap(this.$('#map_canvas')[0], map_options);
+        this.map.clear();
 
         // Custom Maps events (on ready, on click)
         // https://github.com/wf9a5m75/phonegap-googlemaps-plugin/wiki/Map#listen-events
         var mapEvents = plugin.google.maps.event;
-        this.map.on(mapEvents.MAP_READY, _.bind(this._onMapReady, this));
         this.map.on(mapEvents.MAP_CLICK, _.bind(this._handleMapTap, this));
     },
 
@@ -44,12 +51,16 @@ var MapView = Backbone.View.extend({
             var marker_animation = plugin.google.maps.Animation.DROP;
 
             // render markers on map
-            this._rendered_markers = _.map(this.bike_shops.models, _.bind(function (shop) {
-                return this.map.addMarker({
+            _.each(this.bike_shops.models, _.bind(function (shop) {
+                if (shop.get('marker')) { return ; } // marker already exists on map
+                this.map.addMarker({
                     'position': new plugin.google.maps.LatLng(shop.get('latitude'), shop.get('longitude')),
                     'animation': marker_animation,
-                    'title': shop.get('name'),
-                }, _.bind(this._handleMarkerClick, this));
+                }, _.bind(function (marker) {
+                    shop.set('marker', marker);
+                    marker.addEventListener(plugin.google.maps.event.MARKER_CLICK,
+                                            _.bind(this.show_tooltip, this));
+                }, this));
             }, this));
 
             this.$list_view.html(
@@ -64,13 +75,39 @@ var MapView = Backbone.View.extend({
         return template(options || {});
     },
 
-    _onMapReady: function () {
-        this._is_map_ready = true;
-        this.render();
+    show_bikeshop_landing: function (bike_shop) {
+        this.$bike_landing_screen.html(
+                this.render_template('bike_shop', { bike_shop: bike_shop }) );
+        this.$bike_landing_screen.addClass('visible');
+        this.map.setClickable(false);
+    },
+
+    hide_bikeshop_landing: function () {
+        this.$bike_landing_screen.removeClass('visible');
+        this.map.setClickable(true);
+    },
+
+    show_tooltip: function (marker) {
+        var markers = this.bike_shops.where({marker: marker});
+        this.$map_tooltip.html(this.render_template('list_elem', { markers: markers }));
+        this.$map_tooltip.addClass('visible');
+    },
+
+    hide_tooltip: function () {
+        this.$map_tooltip.removeClass('visible');
     },
 
     _handleMarkerClick: function (marker) {
-        marker.showInfoWindow();
+        this.show_tooltip(marker);
+    },
+
+    _handleListviewClick: function (event) {
+        var bike_shop = this.bike_shops.get($(event.currentTarget).data('cid'));
+        this.show_bikeshop_landing(bike_shop);
+    },
+
+    _handleLandingBack: function (event) {
+        this.hide_bikeshop_landing();
     },
 
     _handleListviewShow: function () {
@@ -79,6 +116,7 @@ var MapView = Backbone.View.extend({
 
     _handleMapTap: function () {
         this.$list_view.removeClass('visible');
+        this.hide_tooltip();
     },
 
 });

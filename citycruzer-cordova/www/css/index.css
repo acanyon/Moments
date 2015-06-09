@@ -26,6 +26,21 @@ body {
     width:100%;
 }
 
+.screen {
+    -webkit-transition: left 200ms;
+    transition: left 200ms;
+    background: white;
+    bottom: 0;
+    display: block;
+    left: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 20px;
+    width: 100%;
+}
+.screen.visible { left: 0%; }
+.screen.base_screen { left: 0%; }
+
 .header {
     background: white;
     border-bottom: 3px solid rgba(204,210,176,0.7);
@@ -50,6 +65,28 @@ body {
     right: 0;
     margin: 10px 15px;
 }
+
+#map_canvas .tooltip {
+    background: white;
+    bottom: 60%;
+    display: none;
+    left: 15px;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+}
+#map_canvas .tooltip::after {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid white;
+    content: '';
+    height: 0; 
+    left: 50%;
+    margin-left: -20px;
+    position: absolute;
+    width: 0; 
+}
+#map_canvas .tooltip.visible { display: block; }
 
 #map_canvas .list_view_toggle {
     background: rgba(255, 255, 255, 1);
@@ -88,59 +125,65 @@ body {
     padding-top: 20px;
 }
 
-
-
-
-/**** EXAMPLE BELOW ****/
-/***********************/
-
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+#map_canvas .store_item .bike_categories {
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+#map_canvas .store_item .bike_category::after {
+    border-radius: 15px;
+    border: 1px solid gray; 
+    color:  gray;
+    font-family: 'FontAwesome';
+    padding: 3px
+}
+#map_canvas .store_item .bike_category.standard::after { content: '\f06c'; }
+#map_canvas .store_item .bike_category.mountain::after { content: '\f1fe'; }
+#map_canvas .store_item .bike_category.racing::after   { content: '\f018'; }
+#map_canvas .store_item .bike_category.other::after    { content: '\f206'; }
+
+
+/* Bike Shop Landing */
+
+.bike_store_landing .nav {
+    height: 30px;
+    background: lightgray;
+    padding: 0 20px
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+.bike_store_landing .nav .back.button { font-size: 20px; }
+.bike_store_landing .nav .back.button::after {
+    content: '\f053';
+    font-family: 'FontAwesome';
+    padding: 10px;
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+.bike_store_landing .scrollable_container {
+    bottom: 50px;
+    left: 0;
+    overflow: scroll;
+    position: absolute;
+    right: 0;
+    top: 30px;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+.bike_store_landing .footer {
+    border-top: 1px solid gray;
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    z-index: 100;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+.bike_store_landing .footer .button.reserve_bike {
+    background: green;
+    border-radius: 7px;
+    color: white;
+    display: inline-block;
+    height: 30px;
+    margin: 10px;
 }

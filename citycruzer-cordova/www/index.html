@@ -17,7 +17,7 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
-
+ 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
@@ -35,19 +35,61 @@
 
     </head>
     <body>
-        <div class="header">CityCruzer</div>
-        <div id="map_canvas">
-            <div class="control_container">
-                <span class="list_view_toggle"></span>
+        <div class="screen base_screen visible">
+            <div class="header">CityCruzer</div>
+            <div id="map_canvas">
+                <div id="map_canvas_tooltip" class="tooltip"></div>
+                <div class="control_container">
+                    <span class="list_view_toggle"></span>
+                </div>
+                
+                <div class="list_view_container"></div>
             </div>
-            
-            <div class="list_view_container"></div>
+        </div>
+        <div class="screen bike_store_landing">
         </div>
     </body>
 
+    <script type="text/template" id="bike_store_landing">
+        <div class="nav"><div class="button back"></div></div>
+        <div class="scrollable_container">
+            <div class="heading">
+                <div class="store_name"><%= bike_shop.get('name') %></div>
+                <div class="bike_categories">
+                    <% _.each(bike_shop.bike_categories(), function (category) { %>
+                        <span class="bike_category <%= category %>"></span>
+                    <% }); %>
+                </div>
+            </div>
+
+            <div class="bike_info_container">
+                <% _.each(bike_shop.get('bicycles'), function (bike) { %>
+                    <div class="bike_info">
+                        <img class="image" src="<%= bike.image %>">
+                        <div class="name"><%= bike.name %></div>
+                        <div class="bike_category <%= bike.category %>"></div>
+                        <%= bike.description %>
+                        <div class="pricing">
+                            Hourly rate: <%= bike.hourly_rate %><br/>
+                            Daily max: <%= bike.daily_rate %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <div class="footer"><div class="button reserve_bike">Reserve</div></div>
+    </script>
+
     <script type="text/template" id="list_template">
         <% _.each(markers, function (info) { %>
-            <div class="store_item"><b><%= info.get('name') %></b><br/><%= info.get('address') %></div>
+            <div class="store_item store_link" data-cid="<%= info.cid %>">
+                <div class="store_name"><%= info.get('name') %></div>
+                <div class="bike_categories">
+                    <% _.each(info.bike_categories(), function (category) { %>
+                        <span class="bike_category <%= category %>"></span>
+                    <% }); %>
+                </div>
+            </div>
         <% }); %>
     </script>
 

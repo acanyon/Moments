@@ -23,7 +23,7 @@ define(function (require) {
         // function, we must explicitly call 'app.receivedEvent(...);'
         onDeviceReady: function () {
             setTimeout( function () {
-                new MapView({ el: document.getElementById("map_canvas") });
+                new MapView({ el: $('.ui-page')[0] });
             }, 5000);
         },
     };
