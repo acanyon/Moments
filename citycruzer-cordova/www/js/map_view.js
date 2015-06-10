@@ -4,6 +4,7 @@ var MapView = Backbone.View.extend({
     templates: {
         list_elem: '#list_template',
         bike_shop: '#bike_store_landing',
+        bike_checkout: '#checkout_template',
     },
 
     events: {
@@ -11,7 +12,9 @@ var MapView = Backbone.View.extend({
         //   .. need custom event?
         'click .list_view_toggle': '_handleListviewShow',
         'click .store_link': '_handleListviewClick',
-        'click .button.back': '_handleLandingBack',
+        'click .button.back': '_handleLandingBack',    // TODO - generalize back button
+        'click .button.reserve_bike': '_handleReserveBike',
+        'click .button.confirm_reservation': '_handleReservationConfirmation'
     },
 
     default_options: {
@@ -34,6 +37,7 @@ var MapView = Backbone.View.extend({
 
         this.$list_view = this.$('.list_view_container');
         this.$bike_landing_screen = this.$('.screen.bike_store_landing');
+        this.$checkout_screen = this.$('.screen.bike_checkout');
         this.$map_tooltip = this.$('#map_canvas_tooltip');
 
         // Initialize the map view
@@ -82,6 +86,14 @@ var MapView = Backbone.View.extend({
         this.map.setClickable(false);
     },
 
+    begin_bike_checkout: function (bike_shop) {
+        this.$checkout_screen.html(this.render_template('bike_checkout', {
+            bike_shop: bike_shop,
+            bike: bike_shop.get('bicycles')[0], // TODO - choose bike by user
+        }));
+        this.$checkout_screen.addClass('visible');
+    },
+
     hide_bikeshop_landing: function () {
         this.$bike_landing_screen.removeClass('visible');
         this.map.setClickable(true);
@@ -112,6 +124,16 @@ var MapView = Backbone.View.extend({
 
     _handleListviewShow: function () {
         this.$list_view.addClass('visible');
+    },
+
+    _handleReserveBike: function (event) {
+        var bike_shop = this.bike_shops.get($(event.currentTarget).data('cid'));
+        this.begin_bike_checkout(bike_shop);
+    },
+
+    _handleReservationConfirmation: function (event) {
+        this.hide_bikeshop_landing();
+        this.$checkout_screen.removeClass('visible');
     },
 
     _handleMapTap: function () {
