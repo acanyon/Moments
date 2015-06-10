@@ -22,9 +22,11 @@ define(function (require) {
         // The scope of 'this' is the event. In order to call the 'receivedEvent'
         // function, we must explicitly call 'app.receivedEvent(...);'
         onDeviceReady: function () {
-            setTimeout( function () {
-                new MapView({ el: $('.ui-page')[0] });
-            }, 5000);
+            // Overrides the "click" event with debounced-ish synthetic "tap" event
+            //   >> https://github.com/ftlabs/fastclick
+            Origami.fastclick(document.body);
+
+            new MapView({ el: $('.ui-page')[0] });
         },
     };
 
