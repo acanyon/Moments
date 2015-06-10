@@ -41,6 +41,49 @@ body {
 .screen.visible { left: 0%; }
 .screen.base_screen { left: 0%; }
 
+.screen .nav {
+    height: 30px;
+    background: lightgray;
+    padding: 0 20px
+}
+
+.screen .nav .back.button { font-size: 20px; }
+.screen .nav .back.button::after {
+    content: '\f053';
+    font-family: 'FontAwesome';
+    padding: 10px;
+}
+
+.screen .scrollable_container {
+    bottom: 50px;
+    left: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    right: 0;
+    top: 30px;
+}
+
+.screen .footer {
+    border-top: 1px solid gray;
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    z-index: 1;
+}
+
+.screen .footer .button {
+    background: green;
+    border-radius: 7px;
+    color: white;
+    display: inline-block;
+    height: 30px;
+    margin: 10px;
+}
+
 .header {
     background: white;
     border-bottom: 3px solid rgba(204,210,176,0.7);
@@ -144,48 +187,3 @@ body {
 #map_canvas .store_item .bike_category.racing::after   { content: '\f018'; }
 #map_canvas .store_item .bike_category.other::after    { content: '\f206'; }
 
-
-/* Bike Shop Landing */
-
-.screen .nav {
-    height: 30px;
-    background: lightgray;
-    padding: 0 20px
-}
-
-.screen .nav .back.button { font-size: 20px; }
-.screen .nav .back.button::after {
-    content: '\f053';
-    font-family: 'FontAwesome';
-    padding: 10px;
-}
-
-.screen .scrollable_container {
-    bottom: 50px;
-    left: 0;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    position: absolute;
-    right: 0;
-    top: 30px;
-}
-
-.screen .footer {
-    border-top: 1px solid gray;
-    bottom: 0;
-    height: 50px;
-    left: 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    z-index: 1;
-}
-
-.screen .footer .button {
-    background: green;
-    border-radius: 7px;
-    color: white;
-    display: inline-block;
-    height: 30px;
-    margin: 10px;
-}
