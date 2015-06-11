@@ -110,13 +110,13 @@ body {
 }
 
 #map_canvas .tooltip {
-    background: white;
     bottom: 60%;
     display: none;
     left: 15px;
+    margin: 0 -50% 65px -50%;
     position: absolute;
-    right: 15px;
     text-align: center;
+    width: 100%;
 }
 #map_canvas .tooltip::after {
     border-left: 20px solid transparent;
@@ -130,6 +130,12 @@ body {
     width: 0; 
 }
 #map_canvas .tooltip.visible { display: block; }
+
+#map_canvas .tooltip .store_item {
+    background: white;
+    box-shadow: 3px 3px 5px gray;
+    margin: 0 15px;
+}
 
 #map_canvas .list_view_toggle {
     background: rgba(255, 255, 255, 1);
