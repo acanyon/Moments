@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Bikeshare::Application.config.secret_key_base = 'd74d9483f5dce06ba2604ed30a7ecb0b77ddb2c99f50eeed72d2c1e9bcee63eb4fab66835452337a1b48afbe4caeda92fb08897e4c52acde9ecaf0367d00891a'
+Moments::Application.config.secret_key_base = 'd74d9483f5dce06ba2604ed30a7ecb0b77ddb2c99f50eeed72d2c1e9bcee63eb4fab66835452337a1b48afbe4caeda92fb08897e4c52acde9ecaf0367d00891a'

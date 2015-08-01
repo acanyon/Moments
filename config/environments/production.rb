@@ -1,4 +1,4 @@
-Bikeshare::Application.configure do
+Moments::Application.configure do
   # Mailchimp
   ENV['MAILCHIMP_API_KEY'] = '3f01585ff2183ec6bcc52218fe5078b2-us10'
   ENV['MAILCHIMP_LIST_ID'] = '962bb4269b'

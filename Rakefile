@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Bikeshare::Application.load_tasks
+Moments::Application.load_tasks
