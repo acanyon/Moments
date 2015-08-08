@@ -1,11 +1,11 @@
 development:
   adapter:  postgresql
   host:     localhost
-  username: user
-  database: citycruzer-dev
+  username: acanyon
+  database: momentsphotoshare-dev
 
 test:
   adapter:  postgresql
   host:     localhost
-  username: user
-  database: citycruzer-test
+  username: acanyon
+  database: momentsphotoshare-test

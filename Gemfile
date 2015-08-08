@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Declare ruby and rails versions
 ruby '2.0.0'
-gem 'rails', '4.0.4'
+gem 'rails', '~> 4.1.4'
 
 # Rails web server (WEBrick alternative)
 gem 'thin'
