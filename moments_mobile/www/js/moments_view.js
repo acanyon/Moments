@@ -8,37 +8,31 @@ var MomentsView = Backbone.View.extend({
         'touchend .photos_container': '_handle_tend_photos',
     },
 
-    _handle_tstart_photos: function (event) {
-        this.track_photo_touch(event.originalEvent);
+    initialize: function (options) {
+        this.moments_raw = options.data;
     },
 
-    _handle_tmove_photos: function (event) {
-        this.pan_photo_view($(event.currentTarget), event.originalEvent);
-    },
+    render: function () {
+        var moments_html = _.map(this.moments_raw, function (moment_raw) {
+            return this.render_moment(moment_raw);
+        }, this).join('');
+        this.$el.html(moments_html);
 
-    _handle_tend_photos: function (event) {
-        this.clear_photo_touch();
-
-        var $target = $(event.currentTarget);
-        var $visible = $target.find('.visible.single_photo').last();
-        var $animating = $target.find('.animating.single_photo');
-        var visible_shown = $visible.offset().left + $visible.width();
-        var animating_shown = $animating.length ? ($animating.offset().left + $animating.width() - visible_shown) : -1;
-
-        if (visible_shown > animating_shown) {
-            $animating.removeClass('animating');
-            var new_width = $visible.offset().left + $visible.width() - $target.offset().left;
-            if ($target.width() !== new_width) {
-                $target.animate({width: new_width});
-            }
-        } else {
-            var new_width = $visible.offset().left + $visible.width() + $target.width();
-            $target.animate({width: new_width}, 400);
-            var that = this;
-            setTimeout(function () {
-                that.set_photo_visible($animating);
+        var $photos_container = this.$('.photos_container');
+        $photos_container.width($photos_container.parent().innerWidth());
+        $photos_container.find('.single_photo:first-child').addClass('visible');
+        $photos_container.each(function (a,cell) {
+            var $cell = $(cell);
+            $cell.find('.single_photo').each(function (i, photo) {
+                $(photo).css('z-index', $cell.length - i + 1);
+                $(photo).data('id', i);
             });
-        }
+        });
+    },
+
+    render_moment: function (moment_info) {
+        var template = _.template($('#tpl_moment_single').html());
+        return template({d: moment_info});
     },
 
     set_photo_visible: function ($photo) {
@@ -66,7 +60,6 @@ var MomentsView = Backbone.View.extend({
         var $focused = $target.find('.visible.single_photo').last();
         var $all_photos = $target.find('.single_photo');
 
-
         if (deltaX > 0) { // opening
             var right_edge = $focused.offset().left + $focused.width();
             if (right_edge + deltaX < 300) {
@@ -89,33 +82,39 @@ var MomentsView = Backbone.View.extend({
         this.track_photo_touch(touchevent);
     },
 
-    initialize: function (options) {
-        this.moments_raw = options.data;
+    snap_photo_view: function ($photo_container) {
+        var $visible = $photo_container.find('.visible.single_photo').last();
+        var $animating = $photo_container.find('.animating.single_photo');
+        var visible_shown = $visible.offset().left + $visible.width();
+        var animating_shown = $animating.length ? ($animating.offset().left + $animating.width() - visible_shown) : -1;
+
+        if (visible_shown > animating_shown) {
+            $animating.removeClass('animating');
+            var new_width = $visible.offset().left + $visible.width() - $photo_container.offset().left;
+            if ($photo_container.width() !== new_width) {
+                $photo_container.animate({width: new_width});
+            }
+        } else {
+            var new_width = $visible.offset().left + $visible.width() + $photo_container.width();
+            $photo_container.animate({width: new_width}, 400);
+            var that = this;
+            setTimeout(function () { that.set_photo_visible($animating); });
+        }
     },
 
-    render: function () {
-        var moments_html = _.map(this.moments_raw, function (moment_raw) {
-            return this.render_moment(moment_raw);
-        }, this).join('');
-        this.$el.html(moments_html);
-
-        var $photos_container = this.$('.photos_container');
-        $photos_container.width($photos_container.parent().innerWidth());
-        $photos_container.find('.single_photo:first-child').addClass('visible');
-        $photos_container.each(function (a,cell) {
-            var $cell = $(cell);
-            $cell.find('.single_photo').each(function (i, photo) {
-                $(photo).css('z-index', $cell.length - i + 1);
-                $(photo).data('id', i);
-            });
-        });
+    _handle_tstart_photos: function (event) {
+        this.track_photo_touch(event.originalEvent);
     },
 
-    render_moment: function (moment_info) {
-        var template = _.template($('#tpl_moment_single').html());
-        return template({d: moment_info});
-    }
+    _handle_tmove_photos: function (event) {
+        event.preventDefault();
+        this.pan_photo_view($(event.currentTarget), event.originalEvent);
+    },
+
+    _handle_tend_photos: function (event) {
+        this.clear_photo_touch();
+        this.snap_photo_view($(event.currentTarget));
+    },
 
 });
-
 
