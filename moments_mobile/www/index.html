@@ -12,30 +12,50 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-
-    <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    <script src="js/moments_view.js"></script>
+
   </head>
   <body ng-app="starter">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
+    <div class="header fixed">Moments</div>
+    <div id="moments_body_container"></div>
   </body>
+
+    <script id="tpl_moment_single" type="text/template">
+        <div class="moment_single">
+            <div class="heading">
+                <div class="name_container">
+                    <div class="username"><%- d.username %></div>
+                    <% _.each(d.members, function (membername) { %>
+                        <div class="membername"><%- membername %></div>
+                    <% }); %>
+                </div>
+                <div class="moment_meta"><%- d.location_name %>, <%- d.posted_on %></div>
+                <div class="description"><%- d.description %></div>
+            </div>
+            <div class="photos_window">
+                <div class="photos_container">
+                    <% _.each(d.photos, function (photo) { %>
+                        <div class="single_photo">
+                            <img class="moment_photo" src="<%- photo.src %>">
+                            <div class="comments_container">
+                                <div class="snap_count"><%- photo.snaps %></div>
+                                <% _.each(photo.comments, function (comment) { %>
+                                    <div class="comment">
+                                        <div class="username"><%- comment.username %></div>
+                                        <%- comment.comment %>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </script>
+
 </html>

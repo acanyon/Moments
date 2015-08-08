@@ -1,1 +1,82 @@
-/* Empty. Add your own CSS if you like */
+body {
+    margin: 0;
+}
+
+#moments_body_container {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 67px;
+}
+
+.header.fixed {
+    height: 65px;     position: absolute;     top: 0;     width: 100%;     text-align: center;     background-color: orange;     color: white;     font-size: 36px;     box-sizing: border-box;     padding-top: 25px;
+}
+
+.moment_single {
+    margin: 0 18px;
+    padding: 30px 0 5px 0;
+}
+
+.heading {
+    color: #9B9B9B;
+}
+
+.heading .name_container .username {
+    color: black;
+    letter-spacing: 1.7px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.heading .name_container .membername {
+    color: darkgray;
+    letter-spacing: 1px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.photos_window {
+    display: block;
+    height: 260px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.photos_container {
+    height: 260px;
+    position: absolute;
+    right: 18px;
+}
+
+.photos_container .single_photo {
+    transition: transform 700ms, margin 700ms;
+    position: absolute;
+    top: 0;
+}
+
+.photos_container .single_photo:not(.animating):not(.visible) {
+    margin: 0 -62px;
+    right: -2px;
+    transform: scale(0.8, 0.8);
+}
+
+.photos_container .single_photo.animating {
+    margin: 0;
+    right: 0;
+    transform: scale(1, 1);
+}
+
+.photos_container .single_photo.visible {
+    margin: 0;
+    transform: scale(1, 1);
+}
+
+.photos_container .single_photo img.moment_photo {
+    max-height: 260px;
+}
+
+.single_photo .comments_container {
+    display: none;
+}
+
