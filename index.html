@@ -29,7 +29,8 @@ body {
 }
 
 .moment_single {
-    padding: 30px 18px 5px 18px;
+    margin: 0 18px;
+    padding: 30px 0 5px 0;
 }
 
 .heading {
@@ -51,12 +52,37 @@ body {
 }
 
 .photos_container {
-    position: relative;
+    height: 260px;
+    position: absolute;
+    right: 18px;
+    overflow: hidden;
 }
 
-.photos_container .single_photo {
+.photos_container .single_photo:not(.visible) {
+    transition: transform 700ms, margin 700ms;
     position: absolute;
-    width: 100%;
+    right: 0;
+    top: 0;
+    margin: 0 -62px;
+    transform: scale(0.8, 0.8);
+    z-index: 0;
+}
+
+.photos_container .single_photo.animating {
+    margin: 0;
+    transform: scale(1, 1);
+    z-index: 1;
+}
+
+.photos_container .single_photo.visible {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+}
+
+.photos_container .single_photo img.moment_photo {
+    max-height: 260px;
+    max-width: 100%;
 }
 
 .single_photo .comments_container {
@@ -100,6 +126,61 @@ body {
         var MomentsView = Backbone.View.extend({
 
             events: {
+                'touchstart .photos_container': '_handle_tstart_photos',
+                'touchmove .photos_container': '_handle_tmove_photos',
+                'touchend .photos_container': '_handle_tend_photos',
+            },
+
+            _handle_tstart_photos: function (event) {
+                this.track_photo_touch(event.originalEvent);
+            },
+
+            _handle_tmove_photos: function (event) {
+                this.pan_photo_view($(event.currentTarget), event.originalEvent);
+            },
+
+            _handle_tend_photos: function (event) {
+                this.clear_photo_touch();
+            },
+
+            clear_photo_touch: function () {
+                this._last_touch = undefined;
+            },
+
+            track_photo_touch: function (touchevent) {
+                this._last_touch = { clientX: touchevent.touches[0].clientX };
+            },
+
+            pan_photo_view: function ($target, touchevent) {
+                var touch = touchevent.touches[0];
+                var deltaX = this._last_touch.clientX - touch.clientX;
+
+                if (deltaX > 0) { // opening
+                    var $animating = $target.find('.animating.single_photo');
+                    var $focused = $target.find('.visible.single_photo').last();
+
+                    var right_edge = $focused.offset().left + $focused.width();
+                    if (right_edge + deltaX < 300) {
+                        $('.single_photo:not(.visible)').first().addClass('animating');
+                    }
+                    if (right_edge + deltaX < 10) {
+                        $($animating[0]).removeClass('animating').addClass('visible');
+                    }
+                } else {
+                    var $animating = $target.find('.animating.single_photo');
+                    var $focused = $target.find('.visible.single_photo').last();
+                    var $all_photos = $target.find('.single_photo');
+                    var right_edge = $focused.offset().left + $focused.width();
+                    if (right_edge + deltaX > 100 && $animating.length < 1 && !$all_photos.first().is($focused)) {
+                        $focused.removeClass('visible').addClass('animating');
+                    }
+                    if (right_edge + deltaX > 300) {
+                        $animating.removeClass('animating');
+                    }
+                }
+
+                $target.width($target.width() + deltaX);
+                this.track_photo_touch(touchevent);
             },
 
             initialize: function (options) {
@@ -111,6 +192,10 @@ body {
                     return this.render_moment(moment_raw);
                 }, this).join('');
                 this.$el.html(moments_html);
+
+                var $photos_container = this.$('.photos_container');
+                $photos_container.width($photos_container.parent().innerWidth());
+                $photos_container.find('.single_photo:first-child').addClass('visible');
             },
 
             render_moment: function (moment_info) {
