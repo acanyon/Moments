@@ -65,19 +65,16 @@ body {
     top: 0;
     margin: 0 -62px;
     transform: scale(0.8, 0.8);
-    z-index: 0;
 }
 
 .photos_container .single_photo.animating {
     margin: 0;
     transform: scale(1, 1);
-    z-index: 1;
 }
 
 .photos_container .single_photo.visible {
     display: inline-block;
     position: relative;
-    z-index: 2;
 }
 
 .photos_container .single_photo img.moment_photo {
@@ -141,6 +138,24 @@ body {
 
             _handle_tend_photos: function (event) {
                 this.clear_photo_touch();
+
+                var $target = $(event.currentTarget);
+                var $visible = $target.find('.visible.single_photo').last();
+                var $animating = $target.find('.animating.single_photo');
+                var visible_shown = $visible.offset().left + $visible.width();
+                var animating_shown = $animating.length ? ($animating.offset().left + $animating.width() - visible_shown) : -1;
+
+                if (visible_shown > animating_shown) {
+                    $animating.removeClass('animating');
+                    var new_width = $visible.offset().left + $visible.width() - $target.offset().left;
+                    $target.animate({width: new_width});
+                } else {
+                    var new_width = $visible.offset().left + $visible.width() + $target.width();
+                    $target.animate({width: new_width}, 400);
+                    setTimeout(function () {
+                        $animating.addClass('visible').removeClass('animating');
+                    });
+                }
             },
 
             clear_photo_touch: function () {
@@ -163,7 +178,7 @@ body {
                     if (right_edge + deltaX < 300) {
                         $('.single_photo:not(.visible)').first().addClass('animating');
                     }
-                    if (right_edge + deltaX < 10) {
+                    if (right_edge + deltaX < 16) {
                         $($animating[0]).removeClass('animating').addClass('visible');
                     }
                 } else {
@@ -196,6 +211,13 @@ body {
                 var $photos_container = this.$('.photos_container');
                 $photos_container.width($photos_container.parent().innerWidth());
                 $photos_container.find('.single_photo:first-child').addClass('visible');
+                $photos_container.each(function (a,cell) {
+                    var $cell = $(cell);
+                    $cell.find('.single_photo').each(function (i, photo) {
+                        $(photo).css('z-index', $cell.length - i + 1);
+                        $(photo).data('id', i);
+                    });
+                });
             },
 
             render_moment: function (moment_info) {
