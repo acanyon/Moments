@@ -1,9 +1,10 @@
 Moments::Application.routes.draw do
 
+  devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users
-    root 'welcome#index'
+
+  root 'landing#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
