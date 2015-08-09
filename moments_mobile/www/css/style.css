@@ -2,6 +2,17 @@ body {
     margin: 0;
 }
 
+.scrollable_body {
+    height: 100%;
+    overflow: scroll;
+    position: fixed;
+    width: 100%;
+}
+
+.scrollable_body.locked {
+    overflow: hidden;
+}
+
 #moments_body_container {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -9,7 +20,23 @@ body {
 }
 
 .header.fixed {
-    height: 65px;     position: absolute;     top: 0;     width: 100%;     text-align: center;     background-color: orange;     color: white;     font-size: 36px;     box-sizing: border-box;     padding-top: 25px;
+    transition: height 200ms;
+    background-color: orange;
+    box-sizing: border-box;
+    color: white;
+    font-size: 36px;
+    height: 65px;
+    padding-top: 25px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.header.fixed.collapsed {
+    height: 10px;
 }
 
 .moment_single {

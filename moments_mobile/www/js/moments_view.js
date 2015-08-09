@@ -10,6 +10,8 @@ var MomentsView = Backbone.View.extend({
 
     initialize: function (options) {
         this.moments_raw = options.data;
+        this.lock_bodyscroll = options.lock_bodyscroll;
+        this.unlock_bodyscroll = options.unlock_bodyscroll;
     },
 
     render: function () {
@@ -104,6 +106,7 @@ var MomentsView = Backbone.View.extend({
 
     _handle_tstart_photos: function (event) {
         this.track_photo_touch(event.originalEvent);
+        this.lock_bodyscroll();
     },
 
     _handle_tmove_photos: function (event) {
@@ -114,6 +117,7 @@ var MomentsView = Backbone.View.extend({
     _handle_tend_photos: function (event) {
         this.clear_photo_touch();
         this.snap_photo_view($(event.currentTarget));
+        this.unlock_bodyscroll();
     },
 
 });
