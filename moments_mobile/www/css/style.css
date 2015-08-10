@@ -50,16 +50,16 @@ body {
 
 .heading .name_container .username {
     color: black;
-    letter-spacing: 1.7px;
-    font-weight: 600;
     display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1.7px;
 }
 
 .heading .name_container .membername {
     color: darkgray;
-    letter-spacing: 1px;
-    font-weight: 600;
     display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .photos_window {
