@@ -32,7 +32,9 @@ function init_collapsable_header () {
     }, 100));
 }
 
-moments_raw = [{ username: 'leannagrand', members: ['gracetherope', 'karlinthehouse'], description: 'Summer fun as a raft guide. ::emoji::',
+moments_raw = [{ 
+    id: 109,
+    username: 'leannagrand', members: ['gracetherope', 'karlinthehouse'], description: 'Summer fun as a raft guide. ::emoji::',
     posted_on: '2hrs', view_count: 12, comment_count: 5,
     photos: [
         { snaps: 2, src: 'img/moments/leannagrand_1.jpg',
@@ -44,6 +46,7 @@ moments_raw = [{ username: 'leannagrand', members: ['gracetherope', 'karlintheho
           comments: [] },
     ]
 }, {
+    id: 88,
     username: 'leannagrand', members: ['gracetherope', 'karlinthehouse'], description: 'Summer fun as a raft guide. ::emoji::',
     posted_on: '2hrs', view_count: 12, comment_count: 5,
     photos: [
