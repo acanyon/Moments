@@ -7,6 +7,12 @@ Moments::Application.routes.draw do
 
   root 'landing#index'
 
+  get    'moments'     => 'moments#index'
+  post   'moments'     => 'moments#create'
+  get    'moments/:id' => 'moments#show'
+  delete 'moments/:id' => 'moments#destroy'
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
