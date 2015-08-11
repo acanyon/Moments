@@ -2,6 +2,8 @@ var moments_raw;
 
 // bootstrap here
 $(function () {
+    init_collapsable_header();
+
     var momentsview = new MomentsView({
         data: moments_raw,
         el: $('#moments_body_container')[0],
@@ -9,15 +11,15 @@ $(function () {
         unlock_bodyscroll: unlock_bodyscroll
     });
     momentsview.render();
-    init_collapsable_header();
+    debugger;
 });
 
 function lock_bodyscroll () {
-    $('.scrollable_body').addClass('lock');
+    $('.scrollable_body').addClass('locked');
 }
 
 function unlock_bodyscroll () {
-    $('.scrollable_body').removeClass('lock');
+    $('.scrollable_body').removeClass('locked');
 }
 
 function init_collapsable_header () {
