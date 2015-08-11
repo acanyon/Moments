@@ -20,7 +20,7 @@ body {
 }
 
 .header.fixed {
-    transition: height 200ms;
+    transition: height 400ms, opacity 1000ms;
     background-color: orange;
     box-sizing: border-box;
     color: white;
@@ -37,6 +37,7 @@ body {
 
 .header.fixed.collapsed {
     height: 10px;
+    opacity: 0.7;
 }
 
 .moment_single {
