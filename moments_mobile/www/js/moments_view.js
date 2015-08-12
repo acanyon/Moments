@@ -35,6 +35,8 @@ var MomentsView = Backbone.View.extend({
                 $(photo).data('id', i);
             });
         });
+        this.$el.closest('.scrollable_body').on('scroll',
+                _.bind(this._handle_body_scroll, this));
     },
 
     render_moment: function (moment_info) {
@@ -158,7 +160,8 @@ var MomentsView = Backbone.View.extend({
         var $target = $(event.currentTarget);
         var moment_id = this.get_moment_id($target);
 
-        if (this._focused_moment_id === moment_id || this._focused_moment_id === undefined) {
+        var pan_valid_moment = (this._focused_moment_id === moment_id || this._focused_moment_id === undefined);
+        if (pan_valid_moment && this._first_touch) {
             this.pan_photo_view($target, event.originalEvent);
 
             var deltaX = Math.abs(this._first_touch.clientX - this._prev_touch.clientX);
@@ -175,10 +178,13 @@ var MomentsView = Backbone.View.extend({
         if (event.originalEvent.touches.length === 0) {
             var $target = $(event.currentTarget);
             var moment_id = this.get_moment_id($target);
-            console.log('touchend');
+            var should_snap_photoview = (this._focused_moment_id === moment_id || this._focused_moment_id === undefined);
+            should_snap_photoview = (should_snap_photoview && this._first_touch);
+
             this.clear_photo_touch();
             this.unlock_bodyscroll();
-            if (this._focused_moment_id === moment_id || this._focused_moment_id === undefined) {
+
+            if (should_snap_photoview) {
                 this.snap_photo_view($(event.currentTarget));
             }
         }
@@ -186,6 +192,21 @@ var MomentsView = Backbone.View.extend({
 
     _clear_focused_moment: function (event) {
         this.clear_focused_moment();
+    },
+
+    _handle_body_scroll: function (event) {
+        var $target = $(event.currentTarget);
+        if (!this._last_scroll || this._last_scroll.timestamp + 1000 < Date.now()) {
+            this._last_scroll = {
+                timestamp: Date.now(),
+                scrollTop: $target.scrollTop()
+            };
+            console.log(this._last_scroll);
+        }
+
+        if (Math.abs($target.scrollTop() - this._last_scroll.scrollTop) > 50) {
+            this.clear_focused_moment();
+        }
     },
 
 });
