@@ -6,12 +6,17 @@ var MomentsView = Backbone.View.extend({
         'touchstart .photos_container': '_handle_tstart_photos',
         'touchmove .photos_container': '_handle_tmove_photos',
         'touchend .photos_container': '_handle_tend_photos',
+        'click .moment_single:not(.focused)': '_clear_focused_moment',
     },
 
     initialize: function (options) {
         this.moments_raw = options.data;
         this.lock_bodyscroll = options.lock_bodyscroll;
         this.unlock_bodyscroll = options.unlock_bodyscroll;
+
+        this._focused_moment_id = undefined;
+        this.PAN_CLIENTX_THREASHHOLD = 15; // px
+
     },
 
     render: function () {
@@ -46,17 +51,30 @@ var MomentsView = Backbone.View.extend({
         }
     },
 
+    set_focused_photo: function ($photo) {
+        this.set_focused_moment(this.get_moment_id($photo));
+        this.$('.single_photo.focused').removeClass('focused');
+        $photo.addClass('focused');
+        var $photo_container = $photo.closest('.photos_window');
+        $photo_container.height($photo.height());
+        // TODO - check bounds to see if in view, else scroll
+    },
+
     clear_photo_touch: function () {
-        this._last_touch = undefined;
+        this._prev_touch = undefined;
+        this._first_touch = undefined;
     },
 
     track_photo_touch: function (touchevent) {
-        this._last_touch = { clientX: touchevent.touches[0].clientX };
+        this._prev_touch = { clientX: touchevent.touches[0].clientX };
+        if (!this._first_touch) {
+            this._first_touch = { clientX: touchevent.touches[0].clientX };
+        }
     },
 
     pan_photo_view: function ($target, touchevent) {
         var touch = touchevent.touches[0];
-        var deltaX = this._last_touch.clientX - touch.clientX;
+        var deltaX = this._prev_touch.clientX - touch.clientX;
 
         var $animating = $target.find('.animating.single_photo');
         var $focused = $target.find('.visible.single_photo').last();
@@ -91,6 +109,7 @@ var MomentsView = Backbone.View.extend({
         var animating_shown = $animating.length ? ($animating.offset().left + $animating.width() - visible_shown) : -1;
 
         if (visible_shown > animating_shown) {
+            this.set_focused_photo($visible);
             $animating.removeClass('animating');
             var new_width = $visible.offset().left + $visible.width() - $photo_container.offset().left;
             if ($photo_container.width() !== new_width) {
@@ -98,29 +117,75 @@ var MomentsView = Backbone.View.extend({
             }
         } else {
             var new_width = $visible.offset().left + $visible.width() + $photo_container.width();
+            this.set_focused_photo($animating);
             $photo_container.animate({width: new_width}, 400);
-            var that = this;
-            setTimeout(function () { that.set_photo_visible($animating); });
+            setTimeout(_.bind(function () {
+                this.set_photo_visible($animating);
+            }, this));
         }
+    },
+
+    get_moment_id: function ($target) {
+        return $target.closest('.moment_single').data('id');
+    },
+
+    set_focused_moment: function (moment_id) {
+        this.clear_focused_moment();
+        this._focused_moment_id = moment_id;
+        this.$el.addClass('has_focused_moment');
+        this.$('.moment_single[data-id=' + moment_id + ']').addClass('focused');
+    },
+
+    clear_focused_moment: function (moment_id) {
+        this._focused_moment_id = undefined;
+        this.$el.removeClass('has_focused_moment');
+        var $focused_moment = this.$('.moment_single.focused');
+        $focused_moment.removeClass('focused');
+        this.$('.photos_window').css('height', '');
     },
 
     _handle_tstart_photos: function (event) {
         if (event.originalEvent.touches.length === 1) {
-            this.track_photo_touch(event.originalEvent);
-            this.lock_bodyscroll();
+            console.log('touchstart');
+            var moment_id = this.get_moment_id($(event.currentTarget));
+            if (this._focused_moment_id === moment_id || this._focused_moment_id === undefined) {
+                this.track_photo_touch(event.originalEvent);
+            }
         }
     },
 
     _handle_tmove_photos: function (event) {
-        this.pan_photo_view($(event.currentTarget), event.originalEvent);
+        var $target = $(event.currentTarget);
+        var moment_id = this.get_moment_id($target);
+
+        if (this._focused_moment_id === moment_id || this._focused_moment_id === undefined) {
+            this.pan_photo_view($target, event.originalEvent);
+
+            var deltaX = Math.abs(this._first_touch.clientX - this._prev_touch.clientX);
+            if (deltaX > this.PAN_CLIENTX_THREASHHOLD) {
+                this.lock_bodyscroll();
+                if (this._focused_moment_id === undefined) {
+                    this.set_focused_moment(moment_id);
+                }
+            }
+        }
     },
 
     _handle_tend_photos: function (event) {
         if (event.originalEvent.touches.length === 0) {
+            var $target = $(event.currentTarget);
+            var moment_id = this.get_moment_id($target);
+            console.log('touchend');
             this.clear_photo_touch();
-            this.snap_photo_view($(event.currentTarget));
             this.unlock_bodyscroll();
+            if (this._focused_moment_id === moment_id || this._focused_moment_id === undefined) {
+                this.snap_photo_view($(event.currentTarget));
+            }
         }
+    },
+
+    _clear_focused_moment: function (event) {
+        this.clear_focused_moment();
     },
 
 });

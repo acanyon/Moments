@@ -11,7 +11,6 @@ $(function () {
         unlock_bodyscroll: unlock_bodyscroll
     });
     momentsview.render();
-    debugger;
 });
 
 function lock_bodyscroll () {
