@@ -46,6 +46,7 @@ moments_raw = [{
         { snaps: 0, src: 'img/moments/leannagrand_3.jpg',
           comments: [] },
     ]
+
 }, {
     id: 90,
     username: 'leannagrand', members: ['gracetherope', 'karlinthehouse'], description: 'Summer fun as a raft guide. ::emoji::',
@@ -59,6 +60,7 @@ moments_raw = [{
         { snaps: 0, src: 'img/moments/leannagrand_3.jpg',
           comments: [] },
     ]
+
 }, {
     id: 89,
     username: 'leannagrand', members: ['gracetherope', 'karlinthehouse'], description: 'Summer fun as a raft guide. ::emoji::',
@@ -72,6 +74,7 @@ moments_raw = [{
         { snaps: 0, src: 'img/moments/leannagrand_3.jpg',
           comments: [] },
     ]
+
 }, {
     id: 88,
     username: 'leannagrand', members: ['gracetherope', 'karlinthehouse'], description: 'Summer fun as a raft guide. ::emoji::',

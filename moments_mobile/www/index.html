@@ -51,10 +51,19 @@
                                         <%- comment.comment %>
                                     </div>
                                 <% }); %>
+                                <div class="comment new_comment">
+                                    <div class="username"><%- 'logged-in user' %></div>
+                                    <textarea class="comment_input" placeholder="add a comment"></textarea>
+                                </div>
                             </div>
                         </div>
                     <% }); %>
                 </div>
+            </div>
+            <div class="views_comments_container">
+                <div class="view_count"><%- d.view_count %> views. </div>
+                <div class="comment_count"><%- d.comment_count %> comments.</div>
+
             </div>
         </div>
     </script>

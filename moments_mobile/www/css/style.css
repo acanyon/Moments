@@ -22,16 +22,18 @@ body {
 .header.fixed {
     transition: height 400ms, opacity 1000ms;
     background-color: orange;
+    border-bottom: 1px solid #D0D0D0;
+    box-shadow: 1px 1px 1px rgba(222, 222, 222, 0.7);
     box-sizing: border-box;
     color: white;
     font-size: 36px;
     height: 65px;
+    overflow: hidden;
     padding-top: 25px;
     position: absolute;
     text-align: center;
     top: 0;
     width: 100%;
-    overflow: hidden;
     z-index: 1;
 }
 
@@ -45,13 +47,29 @@ body {
     padding: 30px 0 5px 0;
 }
 
+.moment_single::after {
+    transition: left 200ms, right 200ms;
+    background-color: rgba(222, 222, 222, 0.7);
+    content: '';
+    display: block;
+    height: 1px;
+    left: 15px;
+    position: absolute;
+    right: 15px;
+}
+
+.moment_single.focused::after {
+    left: 0;
+    right: 0;
+}
+
 .heading {
     margin: 0 18px;
     color: #9B9B9B;
 }
 
 .heading .name_container .username {
-    color: black;
+    color: #4A4A4A;
     display: inline-block;
     font-weight: 600;
     letter-spacing: 1.7px;
@@ -59,10 +77,21 @@ body {
 
 .heading .name_container .membername {
     transition: margin 200ms;
-    color: darkgray;
     display: inline-block;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 1.7px;
+}
+
+.view_count, .comment_count {
+    display: inline-block;
+    font-weight: 600;
+    color: #4A4A4A;
+    padding-bottom: 5px;
+    letter-spacing: 1.7px;
+}
+
+.view_count {
+    padding-left: 18px;
 }
 
 .photos_window {
@@ -70,6 +99,7 @@ body {
     display: block;
     height: 260px;
     overflow: hidden;
+    margin: 10px 0;
     position: relative;
     width: 100%;
 }
@@ -130,18 +160,44 @@ body {
     opacity: 1;
 }
 
+.comment {
+    margin: 5px 0;
+}
+
+.comment.new_comment {
+    margin-top: 15px;
+}
+
+.comment .comment_input {
+    border: none;
+    outline: none;
+    padding: 0 0 0 10px;
+    transition: padding 200ms;
+}
+
+.comment .comment_input:focus {
+    padding-left: 0px;
+}
+
 .single_photo .comments_container .username {
     color: orange;
     display: inline-block;
     font-weight: 600;
 }
 
+
+#moments_body_container.has_focused_moment .views_comments_container {
+    transition: height 100ms;
+    height: 0;
+    opacity: 0;
+}
+
 #moments_body_container.has_focused_moment .moment_single.focused .heading {
-    margin-bottom: 10px;
+    ddd-margin-bottom: 10px;
 }
 
 #moments_body_container.has_focused_moment .moment_single:not(.focused) {
-    margin: 30px 0;
+    ddd-margin: 30px 0;
     opacity: 0.4;
 }
 
