@@ -173,10 +173,14 @@ body {
 }
 
 .comment .comment_input {
-    border: none;
-    outline: none;
-    padding: 0 0 0 10px;
     transition: padding 200ms;
+    border: none;
+    height: 17px;
+    margin-bottom: -4px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 0 0 10px;
+    resize: none;
 }
 
 .comment .comment_input:focus {
