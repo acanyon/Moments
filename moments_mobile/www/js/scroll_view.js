@@ -12,6 +12,8 @@ var ScrollView = Backbone.View.extend({
         this.$wrapper = $(options.el);
         this.$scrollable = this.$wrapper.children();
         this.$scrollable.css({ top: 0, left: 0 });
+
+        this.REFRESH_POS_FN = function (x) { return (-50/Math.pow(500, 2)) * Math.pow(x - 500, 2) + 50; };
     },
 
     set_anchor: function ($el) {
@@ -35,12 +37,8 @@ var ScrollView = Backbone.View.extend({
         } else {
             var scrollY = (this.$scrollable.data('scrollY') || 0) + cur_touch.clientY - prev_touch.clientY;
             this.$scrollable.data({'scrollY': scrollY});
-
-            css_top = (-50/Math.pow(500, 2)) * Math.pow(scrollY - 500, 2) + 50;
-            this.$scrollable.css({ top: css_top });
+            this.$scrollable.css({ top: this.REFRESH_POS_FN(scrollY) });
         }
-
-
     },
 
     _scrollend: function (event) {
