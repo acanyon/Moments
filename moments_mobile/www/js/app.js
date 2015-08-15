@@ -5,26 +5,30 @@ $(function () {
     init_collapsable_header();
 
 
-    $('#moments_body_container').html('<div style="height: 1500px;"><div style="background-color:navy;height:300px"></div><div style="background-color:lightblue;height:300px"></div></div>');
-
-    var scrollView = new IScroll('#scrollable_body',  { preventDefault: false });
-    var momentsview = new MomentsView({
-        data: moments_raw,
-        el: $('#moments_body_container')[0],
-        scrollView: scrollView
+    $('#moments_body_container').html('<div class="container" style="height: 1500px;"><div style="background-color:navy;height:300px"></div><div style="background-color:lightblue;height:300px"></div></div>');
+    setTimeout(function () {
+        $('.container').children().on('click', function (event) {
+            return;
+            var $ele = $(event.currentTarget);
+            if ($ele.height() > 300) {
+                $ele.animate({height: '300'}, 100);
+            } else {
+                $ele.animate({height: '350'}, 100);
+            }
+        });
     });
-    momentsview.render();
+    var scrollView = new ScrollView({ el: $('#scrollable_body')[0] });
+
 });
 
-// http://iscrolljs.com/
-IScroll.prototype.lock = function () {
-    $(this.wrapper).css({'overflow': 'hidden'});
-    this.disable()
-};
-IScroll.prototype.unlock = function () {
-    $(this.wrapper).css({'overflow': ''});
-    this.enable();
-};
+
+
+
+
+
+
+
+
 
 function init_collapsable_header () {
     var $header = $('.header');

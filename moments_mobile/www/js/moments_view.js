@@ -15,7 +15,6 @@ var MomentsView = Backbone.View.extend({
 
         this._focused_moment_id = undefined;
         this.PAN_CLIENTX_THREASHHOLD = 15; // px
-
     },
 
     render: function () {

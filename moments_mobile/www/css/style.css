@@ -5,7 +5,7 @@ body {
 #scrollable_body {
     height: 100%;
     position: absolute;
-    overflow: scroll;
+    overflow: hidden;
     width: 100%;
 }
 
@@ -17,6 +17,8 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     margin-top: 67px;
+    position: absolute;
+    width: 100%;
 }
 
 .header.fixed {
