@@ -4,11 +4,14 @@ var moments_raw;
 $(function () {
     init_collapsable_header();
 
-
-    $('#moments_body_container').html('<div class="container" style="height: 1500px;"><div style="background-color:navy;height:300px"></div><div style="background-color:lightblue;height:300px"></div></div>');
+    var content_html = '<div class="container" style="height: 1500px;">' +
+                           '<div class="anchor" style="background-color:navy;height:300px"></div>' +
+                           '<div style="background-color:lightblue;height:300px"></div>' +
+                       '</div>';
+    
+    $('#moments_body_container').html(content_html);
     setTimeout(function () {
         $('.container').children().on('click', function (event) {
-            return;
             var $ele = $(event.currentTarget);
             if ($ele.height() > 300) {
                 $ele.animate({height: '300'}, 100);
@@ -18,6 +21,7 @@ $(function () {
         });
     });
     var scrollView = new ScrollView({ el: $('#scrollable_body')[0] });
+    scrollView.set_anchor($('.anchor'));
 
 });
 
