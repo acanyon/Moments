@@ -4,26 +4,31 @@ var moments_raw;
 $(function () {
     init_collapsable_header();
 
+
+    $('#moments_body_container').html('<div style="height: 1500px;"><div style="background-color:navy;height:300px"></div><div style="background-color:lightblue;height:300px"></div></div>');
+
+    var scrollView = new IScroll('#scrollable_body',  { preventDefault: false });
     var momentsview = new MomentsView({
         data: moments_raw,
         el: $('#moments_body_container')[0],
-        lock_bodyscroll: lock_bodyscroll,
-        unlock_bodyscroll: unlock_bodyscroll
+        scrollView: scrollView
     });
     momentsview.render();
 });
 
-function lock_bodyscroll () {
-    $('.scrollable_body').addClass('locked');
-}
-
-function unlock_bodyscroll () {
-    $('.scrollable_body').removeClass('locked');
-}
+// http://iscrolljs.com/
+IScroll.prototype.lock = function () {
+    $(this.wrapper).css({'overflow': 'hidden'});
+    this.disable()
+};
+IScroll.prototype.unlock = function () {
+    $(this.wrapper).css({'overflow': ''});
+    this.enable();
+};
 
 function init_collapsable_header () {
     var $header = $('.header');
-    $('.scrollable_body').on('scroll', _.debounce(function (event) {
+    $('#scrollable_body').on('scroll', _.debounce(function (event) {
         var scrollTop = $(event.currentTarget).scrollTop();
         if (scrollTop > 80) {
             $header.addClass('collapsed');

@@ -2,14 +2,14 @@ body {
     margin: 0;
 }
 
-.scrollable_body {
+#scrollable_body {
     height: 100%;
+    position: absolute;
     overflow: scroll;
-    position: fixed;
     width: 100%;
 }
 
-.scrollable_body.locked {
+#scrollable_body.locked {
     overflow: hidden;
 }
 

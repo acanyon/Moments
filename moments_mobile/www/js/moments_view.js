@@ -11,8 +11,7 @@ var MomentsView = Backbone.View.extend({
 
     initialize: function (options) {
         this.moments_raw = options.data;
-        this.lock_bodyscroll = options.lock_bodyscroll;
-        this.unlock_bodyscroll = options.unlock_bodyscroll;
+        this.scrollView = options.scrollView;
 
         this._focused_moment_id = undefined;
         this.PAN_CLIENTX_THREASHHOLD = 15; // px
@@ -35,7 +34,7 @@ var MomentsView = Backbone.View.extend({
                 $(photo).attr('data-index', i);
             });
         });
-        this.$el.closest('.scrollable_body').on('scroll',
+        $(this.scrollView.wrapper).on('scroll',
                 _.bind(this._handle_body_scroll, this));
     },
 
@@ -140,14 +139,10 @@ var MomentsView = Backbone.View.extend({
         this._focused_moment_id = moment_id;
         this.$focused_moment = this.$('.moment_single[data-id=' + moment_id + ']');
         this.$focused_moment.addClass('focused');
-        var scrollTop = this.$focused_moment.position().top - this.$el.position().top;
         setTimeout(_.bind(function () {
-            this.$el.parent().animate({ scrollTop: scrollTop }, 200, _.bind(function () {
-                console.log('step 1');
-                this.$el.parent().animate({ scrollTop: scrollTop }, 200, function () { console.log('step 2'); });
-            }, this));
-//            this.$el.parent().animate({ scrollTop: this.$el.position().top });
-        }, this), 500);
+            var scrollTop = this.$el.position().top - this.$focused_moment.position().top + 80;
+            this.scrollView.scrollTo(0, scrollTop, 500);
+        }, this), 100);
     },
 
     clear_focused_moment: function (moment_id) {
@@ -179,7 +174,7 @@ var MomentsView = Backbone.View.extend({
 
             var deltaX = Math.abs(this._first_touch.clientX - this._prev_touch.clientX);
             if (deltaX > this.PAN_CLIENTX_THREASHHOLD) {
-                this.lock_bodyscroll();
+                this.scrollView.lock();
                 if (this._focused_moment_id === undefined) {
                     this.set_focused_moment(moment_id);
                 }
@@ -190,7 +185,7 @@ var MomentsView = Backbone.View.extend({
     _handle_tend_photos: function (event) {
         if (event.originalEvent.touches.length === 0) {
             this.clear_photo_touch();
-            this.unlock_bodyscroll();
+            this.scrollView.unlock();
             this.snap_photo_view();
         }
     },
