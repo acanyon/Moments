@@ -36,7 +36,7 @@ var ScrollView = Backbone.View.extend({
             var scrollY = (this.$scrollable.data('scrollY') || 0) + cur_touch.clientY - prev_touch.clientY;
             this.$scrollable.data({'scrollY': scrollY});
 
-            css_top = (-50/Math.pow(300, 2)) * Math.pow(scrollY - 300, 2) + 50;
+            css_top = (-50/Math.pow(500, 2)) * Math.pow(scrollY - 500, 2) + 50;
             this.$scrollable.css({ top: css_top });
         }
 
