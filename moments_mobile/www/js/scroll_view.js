@@ -18,6 +18,9 @@ var ScrollView = Backbone.View.extend({
 
     lock: function () {
         this._is_locked = true;
+        if (this._is_scrolling) {
+            this._is_scrolling = false;
+        }
     },
 
     unlock: function () {
