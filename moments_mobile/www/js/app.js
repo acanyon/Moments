@@ -4,41 +4,15 @@ var moments_raw;
 $(function () {
     init_collapsable_header();
 
-    var scrollView;
-    var content_html = '<div class="container" style="height: 1500px;">' +
-                           '<div style="background-color:navy;height:300px"></div>' +
-                           '<div class="anchor" style="background-color:lightblue;height:300px"></div>' +
-                       '</div>';
-    
-    $('#moments_body_container').html(content_html);
-    setTimeout(function () {
-        $('.container').children().on('click', function (event) {
-            var $ele = $(event.currentTarget);
-            if ($ele.height() > 300) {
-                $ele.animate({height: '300'}, 100);
-            } else {
-                $ele.animate({height: '350'}, 100);
-            }
-            scrollView.refresh();
-        });
+    var scrollView = new ScrollView({ el: $('#scrollable_body')[0] });
+    var momentsview = new MomentsView({
+        data: moments_raw,
+        el: $('#moments_body_container')[0],
+        scrollView: scrollView
     });
-    scrollView = new ScrollView({ el: $('#scrollable_body')[0] });
-    scrollView.track_anchor($('.anchor'));
-    scrollView.set_anchor_offset({top: 200});
-    setTimeout(function () {
-        scrollView.lock();
-    }, 2000);
+    momentsview.render();
 
 });
-
-
-
-
-
-
-
-
-
 
 function init_collapsable_header () {
     var $header = $('.header');
