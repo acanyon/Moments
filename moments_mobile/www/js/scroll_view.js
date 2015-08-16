@@ -6,14 +6,13 @@ var ScrollView = Backbone.View.extend({
         'touchstart': '_scrollstart',
         'touchmove': '_scrollmove',
         'touchend': '_scrollend',
+        // 'touchcancel': '_scrollcancel',
     },
 
     initialize: function (options) {
         this.$wrapper = $(options.el);
         this.$scrollable = this.$wrapper.children();
         this.$scrollable.css({ top: 0, left: 0 });
-
-        this.REFRESH_POS_FN = function (x) { return (-50/Math.pow(500, 2)) * Math.pow(x - 500, 2) + 50; };
     },
 
     lock: function () {
@@ -90,32 +89,70 @@ var ScrollView = Backbone.View.extend({
     _scrollstart: function (event) {
         this._is_scrolling = !this._is_locked;
         if (this._is_scrolling && event.originalEvent.touches.length === 1) {
-            this._touches = [ this.copyTouch(event.originalEvent.touches[0]) ];
+            var cur_touch = this.copyTouch(event.originalEvent.touches[0]);
+            clearTimeout(this._scroll && this._scroll.ticker);
+
+            var track_move = _.bind(function () {
+                var now, elapsed, delta, v;
+                     
+                now = Date.now();
+                elapsed = now - this._scroll.timestamp;
+                this._scroll.timestamp = now;
+                delta = this._scroll.cur_touch.clientY - this._scroll.frame;
+                this._scroll.frame = this._scroll.cur_touch.clientY;
+
+                v = 1000 * delta / (1 + elapsed);
+                this._scroll.velocity = 0.8 * v + 0.2 * this._scroll.velocity;
+            }, this);
+
+            this._scroll = {
+                velocity: 0,
+                frame: cur_touch.clientY,
+                timestamp: Date.now(),
+                ticker: setInterval(track_move, 100),
+                cur_touch: cur_touch,
+                prev_touch: undefined
+            };
         }
     },
 
     _scrollmove: function (event) {
         if (this._is_scrolling) {
-            var cur_touch = this.copyTouch(event.originalEvent.touches[0]);
-            var prev_touch = this._touches[0];
-            this._touches.unshift(cur_touch);
-            
+            var prev_touch = this._scroll.prev_touch = this._scroll.cur_touch;
+            var cur_touch = this._scroll.cur_touch = this.copyTouch(event.originalEvent.touches[0]);
+
             var css_top = this.$scrollable.position().top + cur_touch.clientY - prev_touch.clientY;
             if (css_top < 0) {
                 this.$scrollable.css({ top: css_top });
                 setTimeout(_.bind(function() { this.track_anchor(); }, this));
             } else {
+                var REFRESH_POS_FN = function (x) {
+                    return (-50/Math.pow(500, 2)) * Math.pow(x - 500, 2) + 50; };
                 var scrollY = (this.$scrollable.data('scrollY') || 0) + cur_touch.clientY - prev_touch.clientY;
                 this.$scrollable.data({'scrollY': scrollY});
-                this.$scrollable.css({ top: this.REFRESH_POS_FN(scrollY) });
+                this.$scrollable.css({ top: REFRESH_POS_FN(scrollY) });
             }
         }
     },
 
     _scrollend: function (event) {
         if (this._is_scrolling && event.originalEvent.touches.length === 0) {
-            this._touches = undefined;
+            this._scroll.cur_touch = this._scroll._prev_touch = undefined;
             this.$scrollable.data({'scrollY': ''});
+
+            clearTimeout(this._scroll && this._scroll.ticker);
+            if (this._scroll.velocity > 10 || this._scroll.velocity < -10) {
+                var amplitude = 0.8 * this._scroll.velocity;
+
+                if (amplitude) {
+                    var TIMECONSTANT = 325; // "Mimic iOS (in its UIWebView, decelerationRate normal)"
+                    var delta = amplitude * Math.exp(-100 / TIMECONSTANT);
+                    var mult = delta > 1 ? 1 : -1;
+                    // TODO - custom animation w/cancel
+                    this.$scrollable.animate({ top: this.$scrollable.position().top + delta }, { easing: 'easeOutQuad', duration: 1000 });
+                }
+            }
+
             if (this.$scrollable.position().top > 0) {
                 this.$scrollable.animate({top: 0}, {easing: 'easeOutQuad', duration: 150});
             }
