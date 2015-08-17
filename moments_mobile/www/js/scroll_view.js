@@ -78,8 +78,9 @@ var ScrollView = Backbone.View.extend({
                 if (deltaY > 10) { deltaY = deltaY / 3; }
                 var css_top = this.$scrollable.position().top + deltaY;
                 css_top = (css_top < 0 ? css_top : 0);
-                this.$scrollable.animate({ top: css_top }, ANIMATION_DURATION,
-                                         'swing',_.partial(callback, true));
+//                this.$scrollable.animate({ top: css_top }, ANIMATION_DURATION,
+//                                         'swing',_.partial(callback, true));
+                this._animate_to_position(css_top);
             } else {
                 callback(false);
             }
@@ -149,7 +150,8 @@ var ScrollView = Backbone.View.extend({
                     var delta = amplitude * Math.exp(-100 / TIMECONSTANT);
                     var mult = delta > 1 ? 1 : -1;
                     // TODO - custom animation w/cancel
-                    this.$scrollable.animate({ top: this.$scrollable.position().top + delta }, { easing: 'easeOutQuad', duration: 1000 });
+                    //this.$scrollable.animate({ top: this.$scrollable.position().top + delta }, { easing: 'easeOutQuad', duration: 1000 });
+                    this._animate_to_position(this.$scrollable.position().top + delta);
                 }
             }
 
@@ -160,6 +162,31 @@ var ScrollView = Backbone.View.extend({
         this._is_scrolling = undefined;
     },
 
+    _animate_to_position: function (position) {
+        var ANIMATION_RATE = 200; // px/100ms
+        var ANIMATION_SLOWDOWN_TARGET = ANIMATION_RATE * 1.5; // begin slowdown
+
+        clearTimeout(this._animate_timeout);
+//        this.$el.css({'transition': 'top 500ms'});
+        this._is_animating = true;
+        this._animation_target = position;
+        var delta = this.$scrollable.position().top - position;
+        var direction = (delta >= 0 ? 1 : -1);
+        delta = Math.abs(delta);
+
+        if (delta > ANIMATION_SLOWDOWN_TARGET) {
+            this.$scrollable.css({top: this.$scrollable.position().top - direction * ANIMATION_RATE});
+            this._animate_timeout = setTimeout(_.bind(function () {
+                console.log('animte to :' + position);
+                this._animate_to_position(position);
+            }, this), 100);
+        } else {
+            this.$scrollable.animate({top: position}, {easing: 'easeOutQuad', duration: 200});
+        }
+
+
+    },
+
     copyTouch: function (touch) {
         return {
             clientY: touch.clientY,
@@ -168,5 +195,4 @@ var ScrollView = Backbone.View.extend({
     }
 
 });
-//_.extend(ScrollView, Backbone.Events);
 

@@ -78,11 +78,9 @@ var MomentsView = Backbone.View.extend({
                 if (diffX > 20 || diffY > 20) {
                     if (diffY > diffX) {
                         this._scroll.canceled = true;
-                        console.log('pan canceled');
                     } else {
                         this.scrollView.lock();
                         this._scroll.has_locked_scroll = true;
-                        console.log('panning photos');
                     }
                 }
             } else {
