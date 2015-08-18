@@ -6,7 +6,6 @@ var MomentsView = Backbone.View.extend({
         'touchstart .photos_container': '_handle_tstart_photos',
         'touchmove .photos_container': '_handle_tmove_photos',
         'touchend .photos_container': '_handle_tend_photos',
-        'click .moment_single:not(.focused)': '_clear_focused_moment',
     },
 
     initialize: function (options) {
@@ -44,7 +43,7 @@ var MomentsView = Backbone.View.extend({
             console.error('More than one match found.');
         }
         this.$focused_moment.addClass('focused');
-        this.scrollView.scrollToElement(this.$focused_moment[0]);
+        this.scrollView.setResistancePoint(this.$focused_moment[0], 100, _.bind(this.moment_blur, this));
     },
 
     moment_blur: function () {
@@ -56,7 +55,6 @@ var MomentsView = Backbone.View.extend({
         if (this.$focused_moment) {
             this.$focused_moment.removeClass('focused');
             this.$focused_moment = undefined;
-            this.scrollView.clear_anchor();
         }
     },
 

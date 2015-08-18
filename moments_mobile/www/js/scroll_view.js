@@ -3,13 +3,14 @@
 var ScrollView = function (el, options) {
     // init scroll view
     options = {
-//        preventDefault: false,
- //       mouseWheel: true,
-  //      keyBindings: true,
+        preventDefault: false,
+        mouseWheel: true,
+        keyBindings: true,
     };
     _.bind(IScroll, this)(el, options);
 };
 
+var utils = IScroll.utils;
 ScrollView.prototype = _.extend({}, IScroll.prototype, {
     lock: function () {
         $(this.wrapper).css({'overflow': 'hidden'});
@@ -21,6 +22,213 @@ ScrollView.prototype = _.extend({}, IScroll.prototype, {
         this.enable();
     },
 
+    setResistancePoint: function (el, padding, callback) {
+        padding = padding || 0;
+        this.resistance_point = {
+            el: el,
+            padding: padding,
+            callback: callback,
+            delta: 0,
+        };
+        this.scrollToElement(el, undefined, undefined, -1 * padding);
+    },
+
+    clearResistancePoint: function () {
+        this.resistance_point = undefined;
+    },
+
+	_move: function (e) {
+		if ( !this.enabled || utils.eventType[e.type] !== this.initiated ) {
+			return;
+		}
+
+		if ( this.options.preventDefault ) {	// increases performance on Android? TODO: check!
+			e.preventDefault();
+		}
+
+		var point		= e.touches ? e.touches[0] : e,
+			deltaX		= point.pageX - this.pointX,
+			deltaY		= point.pageY - this.pointY,
+			timestamp	= utils.getTime(),
+			newX, newY,
+			absDistX, absDistY;
+
+		this.pointX		= point.pageX;
+		this.pointY		= point.pageY;
+
+		this.distX		+= deltaX;
+		this.distY		+= deltaY;
+		absDistX		= Math.abs(this.distX);
+		absDistY		= Math.abs(this.distY);
+
+		// We need to move at least 10 pixels for the scrolling to initiate
+		if ( timestamp - this.endTime > 300 && (absDistX < 10 && absDistY < 10) ) {
+			return;
+		}
+
+		// If you are scrolling in one direction lock the other
+		if ( !this.directionLocked && !this.options.freeScroll ) {
+			if ( absDistX > absDistY + this.options.directionLockThreshold ) {
+				this.directionLocked = 'h';		// lock horizontally
+			} else if ( absDistY >= absDistX + this.options.directionLockThreshold ) {
+				this.directionLocked = 'v';		// lock vertically
+			} else {
+				this.directionLocked = 'n';		// no lock
+			}
+		}
+
+		if ( this.directionLocked == 'h' ) {
+			if ( this.options.eventPassthrough == 'vertical' ) {
+				e.preventDefault();
+			} else if ( this.options.eventPassthrough == 'horizontal' ) {
+				this.initiated = false;
+				return;
+			}
+
+			deltaY = 0;
+		} else if ( this.directionLocked == 'v' ) {
+			if ( this.options.eventPassthrough == 'horizontal' ) {
+				e.preventDefault();
+			} else if ( this.options.eventPassthrough == 'vertical' ) {
+				this.initiated = false;
+				return;
+			}
+
+			deltaX = 0;
+		}
+
+		deltaX = this.hasHorizontalScroll ? deltaX : 0;
+		deltaY = this.hasVerticalScroll ? deltaY : 0;
+
+		newX = this.x + deltaX;
+		newY = this.y + deltaY;
+
+        if (this.resistance_point) {
+            var el = this.resistance_point.el;
+            var pos = utils.offset(el);
+            var minY = pos.top;
+            var minY_padded = pos.top + this.resistance_point.padding;
+            var maxY = pos.top - $(el).height();
+            var maxY_padded = pos.top - $(el).height() - this.resistance_point.padding;
+            if (newY > minY_padded || (newY - $(this.wrapper).height() < maxY_padded && newY < minY)) {
+                this.resistance_point.delta += deltaY;
+                newY = this.y;
+                if (Math.abs(this.resistance_point.delta) > 100) {
+                    newY = this.y + this.resistance_point.delta;
+                    this.resistance_point.callback();
+                    this.clearResistancePoint();
+                }
+            } else {
+                this.resistance_point.delta = 0;
+            }
+        }
+
+		// Slow down if outside of the boundaries
+		if ( newX > 0 || newX < this.maxScrollX ) {
+			newX = this.options.bounce ? this.x + deltaX / 3 : newX > 0 ? 0 : this.maxScrollX;
+		}
+		if ( newY > 0 || newY < this.maxScrollY ) {
+			newY = this.options.bounce ? this.y + deltaY / 3 : newY > 0 ? 0 : this.maxScrollY;
+		}
+
+		this.directionX = deltaX > 0 ? -1 : deltaX < 0 ? 1 : 0;
+		this.directionY = deltaY > 0 ? -1 : deltaY < 0 ? 1 : 0;
+
+		if ( !this.moved ) {
+			this._execEvent('scrollStart');
+		}
+
+		this.moved = true;
+
+		this._translate(newX, newY);
+
+/* REPLACE START: _move */
+
+		if ( timestamp - this.startTime > 300 ) {
+			this.startTime = timestamp;
+			this.startX = this.x;
+			this.startY = this.y;
+		}
+
+/* REPLACE END: _move */
+
+   },
+
+
+	_end: function (e) {
+		if ( !this.enabled || utils.eventType[e.type] !== this.initiated ) {
+			return;
+		}
+
+		if ( this.options.preventDefault && !utils.preventDefaultException(e.target, this.options.preventDefaultException) ) {
+			e.preventDefault();
+		}
+
+		var point = e.changedTouches ? e.changedTouches[0] : e,
+			momentumX,
+			momentumY,
+			duration = utils.getTime() - this.startTime,
+			newX = Math.round(this.x),
+			newY = Math.round(this.y),
+			distanceX = Math.abs(newX - this.startX),
+			distanceY = Math.abs(newY - this.startY),
+			time = 0,
+			easing = '';
+
+		this.isInTransition = 0;
+		this.initiated = 0;
+		this.endTime = utils.getTime();
+
+		// reset if we are outside of the boundaries
+		if ( this.resetPosition(this.options.bounceTime) ) {
+			return;
+		}
+
+		this.scrollTo(newX, newY);	// ensures that the last position is rounded
+
+		// we scrolled less than 10 pixels
+		if ( !this.moved ) {
+			if ( this.options.tap ) {
+				utils.tap(e, this.options.tap);
+			}
+
+			if ( this.options.click ) {
+				utils.click(e);
+			}
+
+			this._execEvent('scrollCancel');
+			return;
+		}
+
+		if ( this._events.flick && duration < 200 && distanceX < 100 && distanceY < 100 ) {
+			this._execEvent('flick');
+			return;
+		}
+
+		// start momentum animation if needed
+		if ( this.options.momentum && duration < 300 && !this.resistance_point) {
+			momentumX = this.hasHorizontalScroll ? utils.momentum(this.x, this.startX, duration, this.maxScrollX, this.options.bounce ? this.wrapperWidth : 0, this.options.deceleration) : { destination: newX, duration: 0 };
+			momentumY = this.hasVerticalScroll ? utils.momentum(this.y, this.startY, duration, this.maxScrollY, this.options.bounce ? this.wrapperHeight : 0, this.options.deceleration) : { destination: newY, duration: 0 };
+			newX = momentumX.destination;
+			newY = momentumY.destination;
+			time = Math.max(momentumX.duration, momentumY.duration);
+			this.isInTransition = 1;
+		}
+
+// INSERT POINT: _end
+
+		if ( newX != this.x || newY != this.y ) {
+			// change easing function when scroller goes out of the boundaries
+			if ( newX > 0 || newX < this.maxScrollX || newY > 0 || newY < this.maxScrollY ) {
+				easing = utils.ease.quadratic;
+			}
+
+			this.scrollTo(newX, newY, time, easing);
+			return;
+		}
+
+		this._execEvent('scrollEnd');
+    },
 });
 
 
