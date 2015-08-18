@@ -1,6 +1,37 @@
 "use strict";
 
-var ScrollView = Backbone.View.extend({
+var ScrollView = function (el, options) {
+    // init scroll view
+    options = {
+//        preventDefault: false,
+ //       mouseWheel: true,
+  //      keyBindings: true,
+    };
+    _.bind(IScroll, this)(el, options);
+};
+
+ScrollView.prototype = _.extend({}, IScroll.prototype, {
+    lock: function () {
+        $(this.wrapper).css({'overflow': 'hidden'});
+        this.disable()
+    },
+
+    unlock: function () {
+        $(this.wrapper).css({'overflow': ''});
+        this.enable();
+    },
+
+});
+
+
+
+
+
+
+
+
+
+var ScrollViewOld = Backbone.View.extend({
 
     events: {
         'touchstart': '_scrollstart',

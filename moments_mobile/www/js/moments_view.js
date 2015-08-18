@@ -23,6 +23,10 @@ var MomentsView = Backbone.View.extend({
         this.$el.html(moments_html);
 
         setTimeout(_.bind(function () {
+            this.scrollView.refresh();
+        }, this), 100);
+
+        setTimeout(_.bind(function () {
             this.moment_focus(90);
         }, this), 1000);
     },
@@ -40,8 +44,7 @@ var MomentsView = Backbone.View.extend({
             console.error('More than one match found.');
         }
         this.$focused_moment.addClass('focused');
-        this.scrollView.track_anchor(this.$focused_moment);
-        this.scrollView.set_anchor_offset({ top: 100 });
+        this.scrollView.scrollToElement(this.$focused_moment[0]);
     },
 
     moment_blur: function () {

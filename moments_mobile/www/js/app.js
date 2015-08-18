@@ -2,9 +2,9 @@ var moments_raw;
 
 // bootstrap here
 $(function () {
-    init_collapsable_header();
+    var scrollView = new ScrollView('#scrollable_body');
+    init_collapsable_header(scrollView);
 
-    var scrollView = new ScrollView({ el: $('#scrollable_body')[0] });
     var momentsview = new MomentsView({
         data: moments_raw,
         el: $('#moments_body_container')[0],
@@ -14,16 +14,29 @@ $(function () {
 
 });
 
-function init_collapsable_header () {
-    var $header = $('.header');
-    $('#scrollable_body').on('scroll', _.debounce(function (event) {
-        var scrollTop = $(event.currentTarget).scrollTop();
-        if (scrollTop > 80) {
+function init_collapsable_header (scrollView) {
+    var _should_track_scroll = false;
+    var _timeout = undefined;
+    var adjust_collapsable_header = function () {
+        var $header = $('.header');
+        if (scrollView.y < -80) {
             $header.addClass('collapsed');
         } else {
             $header.removeClass('collapsed');
         }
-    }, 100));
+        if (_should_track_scroll) {
+            _timeout = setTimeout(adjust_collapsable_header, 100);
+        }
+    };
+
+    scrollView.on('scrollStart', function () {
+        _should_track_scroll = true;
+        clearTimeout(_timeout);
+        adjust_collapsable_header(scrollView);
+
+    });
+    scrollView.on('scrollEnd', function () { _should_track_scroll = false; });
+    scrollView.on('scrollCancel', function () { _should_track_scroll = false; });
 }
 
 moments_raw = [{ 
