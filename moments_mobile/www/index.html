@@ -5,8 +5,10 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <title></title>
 
-        <link href="css/normalize.css" rel="stylesheet">
-        <link href="css/style.css"     rel="stylesheet">
+        <link href="css/normalize.css"    rel="stylesheet">
+        <link href="css/style.css"        rel="stylesheet">
+        <link href="css/moments_view.css" rel="stylesheet">
+        <link href="css/composition_view.css" rel="stylesheet">
 
         <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
         <link href="css/ionic.app.css" rel="stylesheet">
@@ -21,14 +23,19 @@
         <script src="js/app.js"></script>
         <script src="js/scroll_view.js"></script>
         <script src="js/moments_view.js"></script>
+        <script src="js/composition_view.js"></script>
     </head>
 
     <body>
-        <div class="header fixed">Moments</div>
-    
-        <div id="scrollable_body"><div id="moments_body_container"></div></div>
+        <div id="scrollable_body">
+            <div class="header fixed">Moments</div>
+            <div id="moments_body_container"></div>
+        </div>
 
-        <div class="footer fixed">
+        <div id="new_moment_container" class="slide_in_modal">
+        </div>
+
+        <div class="footer fixed" id="footer">
             <div class="home footer_button"></div>
             <div class="publish footer_button"></div>
             <div class="my_profile footer_button"></div>
@@ -74,6 +81,27 @@
                 <div class="comment_count"><%- d.comment_count %> comments.</div>
             </div>
         </div>
+    </script>
+
+    <script id="tpl_composition_view" type="text/template">
+        <div class="heading">
+            <div class="send active">Send</div>
+            <div class="publish">Publish</div>
+        </div>
+
+        <div class="photos">
+            <div class="photo"></div>
+        </div>
+
+        <div class="to_wrapper">
+            <label>To:</label>
+            <input name="to" placeholder="Logan, 888-888-8888">
+        </div>
+
+        <div class="caption_wrapper">
+            <textarea placeholder="Write a caption"></textarea>
+        </div>
+
     </script>
 
 </html>

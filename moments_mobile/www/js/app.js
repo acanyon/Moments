@@ -12,6 +12,16 @@ $(function () {
     });
     momentsview.render();
 
+    var composeView = new CompositionView({
+        el: $('#new_moment_container')[0]
+    });
+
+    var $footer = $('#footer');
+    $footer.find('.publish').on('click', function () {
+        composeView.render();
+        $('body').addClass('show_modal');
+    });
+
 });
 
 function init_collapsable_header (scrollView) {

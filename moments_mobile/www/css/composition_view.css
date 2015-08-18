@@ -1,0 +1,62 @@
+#new_moment_container .heading {
+    height: 70px;
+    border-bottom: 3px solid gray;
+    position: relative;
+    display: block;
+}
+
+#new_moment_container .send, #new_moment_container .publish {
+    width: 50%;
+    box-sizing: border-box;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    text-transform: uppercase;
+    padding-bottom: 7px;
+}
+
+
+#new_moment_container .publish {
+    right: 0;
+    left: initial;
+}
+
+#new_moment_container .active {
+    color: orange;
+    border-bottom: 3px solid orange;
+    margin-bottom: -3px;
+}
+
+#new_moment_container .photos {
+    height: 150px;
+}
+
+#new_moment_container .to_wrapper {
+    padding: 10px 0;
+    margin-left: 15px;
+}
+
+#new_moment_container .to_wrapper label {
+    color: gray;
+}
+
+#new_moment_container input[name="to"] {
+    outline: none;
+    border: none;
+}
+
+#new_moment_container .caption_wrapper {
+    margin-left: 15px;
+    outline: none;
+    border: none;
+}
+
+#new_moment_container textarea {
+    width: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    resize: none;
+    margin: 0px;
+}
