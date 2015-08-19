@@ -28,23 +28,15 @@
     </head>
 
     <body>
-        <div id="moments_body_container"></div>
-
+        <div class="header fixed">Moments</div>
+        <div id="moments_body_container"><div class="container"></div></div>
         <div id="new_moment_container" class="slide_in_modal"></div>
-
         <div class="footer fixed" id="footer">
             <div class="home footer_button"></div>
             <div class="publish footer_button"></div>
             <div class="my_profile footer_button"></div>
         </div>
     </body>
-
-    <script id="tpl_moments_wrapper" type="text/template">
-        <div class="header fixed">Moments</div>
-        <div id="scrollable_body">
-            <div class="container"></div>
-        </div>
-    </script>
 
     <script id="tpl_moment_single" type="text/template">
         <div class="moment_single" data-id="<%- d.id %>">

@@ -6,26 +6,19 @@
     font-style: normal;
 }
 
+* {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+      -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */  
+}
+
 body {
     background-color: gray;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    margin: 0;
     overflow: hidden;
 
-    position: fixed;
-    width: 100%;
-    height: 100%;
-}
-
-body.show_modal { }
-
-body.show_modal #moments_body_container {
-    transform: scale(0.95);
-    -webkit-transform: scale(0.95);
-    background-color: white;
-    margin-top: -2%;
-    opacity: 0.8;
 }
 
 body.show_modal .slide_in_modal {
@@ -33,13 +26,14 @@ body.show_modal .slide_in_modal {
 }
 
 .slide_in_modal {
-    transition: top 200ms;
-    -webkit-transition: top 200ms;
+    transition: top 1s;
+    -webkit-transition: top 1s;
     transition-timing-function: ease-out;
     -webkit-transition-timing-function: ease-out;
-    height: 100%;
+    bottom: 0;
     left: 0;
-    position: absolute;
+    position: fixed;
+    overflow: hidden;
     right: 0;
     top: 100%;
     z-index: 1;

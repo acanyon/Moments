@@ -12,8 +12,8 @@
 }
 
 #new_moment_container .heading::after {
-    transition: left 150ms;
-    -webkit-transition: left 150ms;
+    transition: left 1s;
+    -webkit-transition: left 1s;
     border-bottom: 3px solid orange;
     bottom: 0;
     content: '';

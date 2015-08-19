@@ -12,10 +12,10 @@ var MomentsView = Backbone.View.extend({
         this.moments_raw = options.data;
         this.scrollView = options.scrollView;
         this._focused_moment_id = undefined;
-        this.$el.html(_.template($('#tpl_moments_wrapper').html())());
 
-        this.scrollView = new ScrollView('#scrollable_body'); // scope me
-//        this.init_collapsable_header();
+        this.render_moments(this.moments_raw);
+        this.scrollView = new ScrollView(this.el); // scope me
+        this.init_collapsable_header();
     },
 
     init_collapsable_header: function () {
@@ -43,11 +43,12 @@ var MomentsView = Backbone.View.extend({
     },
 
 
-    render: function () {
-        var moments_html = _.map(this.moments_raw, function (moment_raw) {
-            return this.render_moment(moment_raw);
+    render_moments: function (moments_raw) {
+        var template = _.template($('#tpl_moment_single').html());
+        var moments_html = _.map(moments_raw, function (moment_info) {
+            return template({d: moment_info});
         }, this).join('');
-        this.$('.container').html(moments_html);
+        this.$('.container').append(moments_html);
 
         setTimeout(_.bind(function () {
             this.scrollView.refresh();
@@ -56,11 +57,6 @@ var MomentsView = Backbone.View.extend({
         setTimeout(_.bind(function () {
             this.moment_focus(90);
         }, this), 1000);
-    },
-
-    render_moment: function (moment_info) {
-        var template = _.template($('#tpl_moment_single').html());
-        return template({d: moment_info});
     },
 
     moment_focus: function (moment_id) {
