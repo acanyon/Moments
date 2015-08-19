@@ -1,6 +1,7 @@
 #new_moment_container .wrapper {
     background-color: #ffffff;
-    margin-top: 20px;
+    margin: 20px 0 -20px 0;
+    height: 100%;
     position: relative;
 }
 
@@ -80,13 +81,16 @@
     position: relative;
 }
 
-#new_moment_container .section::after {
-    border-bottom: solid 1px gray;
+#new_moment_container .section.to_wrapper::after,
+#new_moment_container .section.photos::after {
+    transition: padding 1s;
+    border-bottom: 1px solid rgba(222, 222, 222, 0.7);
     content: '';
-    position: relative;
     display: block;
+    position: relative;
     margin: 10px 0;
     width: 100%;
+    display: block;
 }
 
 #new_moment_container .photo {
