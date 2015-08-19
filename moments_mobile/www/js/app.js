@@ -16,7 +16,10 @@ $(function () {
     });
 
     var $footer = $('#footer');
-    $footer.find('.publish').on('click', function () { composeView.show(); } );
+    $footer.find('.publish').on('tap', function () {
+        event.preventDefault(); event.stopPropagation();
+        composeView.show();
+    });
 
 });
 
