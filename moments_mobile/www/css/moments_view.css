@@ -214,7 +214,7 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     opacity: 0;
 }
 
-.moment_single:not(.focused) {
+#moments_body_container.has_focused_moment .moment_single:not(.focused) {
     opacity: 0.4;
 }
 
