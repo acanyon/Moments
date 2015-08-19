@@ -13,6 +13,11 @@
         user-select: none;          /* Likely future */  
 }
 
+input[type="text"],
+textarea {
+    -webkit-user-select: text;
+}
+
 body.ui-mobile-viewport {
     background-color: gray;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -31,13 +36,13 @@ body.show_modal .slide_in_modal {
     -webkit-transition: top 1s;
     transition-timing-function: ease-out;
     -webkit-transition-timing-function: ease-out;
-    bottom: 0;
     left: 0;
     position: fixed;
     overflow: hidden;
     right: 0;
     top: 100%;
     z-index: 1;
+    height: 100%;
 }
 
 .footer.fixed {

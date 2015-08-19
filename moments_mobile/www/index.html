@@ -89,7 +89,10 @@
             </div>
             <div class="body_container">
                 <div class="section photos"><div class="photo"></div></div>
-                <div class="section to_wrapper"><label>To</label><input name="to" placeholder="Logan, 888-888-8888"></div>
+                <div class="section to_wrapper" data-role="fieldcontain">
+                    <label for="to_field">To</label>
+                    <input placeholder="Logan, 888-888-8888" type="text" name="to_field" class="to_field" value=""  />
+                </div>  
                 <div class="section caption_wrapper"><textarea placeholder="Write a caption"></textarea></div>
             </div>
         </div>
