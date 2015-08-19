@@ -13,12 +13,13 @@
         user-select: none;          /* Likely future */  
 }
 
-body {
+body.ui-mobile-viewport {
     background-color: gray;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     overflow: hidden;
-
+    height: 100%;
+    position: fixed;
 }
 
 body.show_modal .slide_in_modal {
