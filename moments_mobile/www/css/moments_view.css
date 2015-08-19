@@ -1,11 +1,11 @@
 #moments_body_container {
-    transition: transform 1s, margin 1s;
-    -webkit-transition: transform 1s, margin 1s;
-    transform: translate3d(0px,0px,0px);
-    -webkit-transform: translate3d(0px,0px,0px);
+    transition: margin 1s, width 1s;
+    -webkit-transition: margin 1s, width 1s;
+    margin: 0 auto;
     background-color: #ffffff;
     display: block;
     height: 100%;
+    width: 100%;
     left: 0;
     overflow: hidden;
     position: fixed;
@@ -13,18 +13,17 @@
     top: 0;
 }
 
-body.show_modal #moments_body_container, body.show_modal .header.fixed {
-    transform: scaleX(0.95);
-    -webkit-transform: scaleX(0.95);
-    margin-top: 7px;
+body.show_modal #moments_body_container, body.show_modal #header.fixed {
+    width: 94%;
+    margin: 7px auto;
     opacity: 0.8;
 }
 
 #header.fixed {
-    transition: transform 1s, margin 1s, height 1s, opacity 1s;
-    -webkit-transition: transform 1s, margin 1s, height 1s, opacity 1s;
-    transform: scaleX(1.0);
-    -webkit-transform: scaleX(1.0);
+    transition: margin 1s, height 1s, opacity 1s, width 1s;
+    -webkit-transition: margin 1s, height 1s, opacity 1s, width 1s;
+    margin: 0 auto;
+    width: 100%;
     background-color: orange;
     border-bottom: 1px solid #D0D0D0;
     box-shadow: 1px 1px 1px rgba(222, 222, 222, 0.7);
@@ -48,17 +47,17 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     opacity: 0.7;
 }
 
-.container {
+#moments_body_container .container {
     background-color: white;
     padding: 60px 0;
 }
 
-.moment_single {
+#moments_body_container .moment_single {
     transition: margin 1s, opacity 1s;
     padding: 30px 0 5px 0;
 }
 
-.moment_single::after {
+#moments_body_container .moment_single::after {
     transition: left 1s, right 1s;
     background-color: rgba(222, 222, 222, 0.7);
     content: '';
@@ -69,31 +68,31 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     right: 15px;
 }
 
-.moment_single.focused::after {
+#moments_body_container .moment_single.focused::after {
     left: 0;
     right: 0;
 }
 
-.heading {
+#moments_body_container .heading {
     margin: 0 18px;
     color: #9B9B9B;
 }
 
-.heading .name_container .username {
+#moments_body_container .heading .name_container .username {
     color: #4A4A4A;
     display: inline-block;
     font-weight: 600;
     letter-spacing: 1.7px;
 }
 
-.heading .name_container .membername {
+#moments_body_container .heading .name_container .membername {
     transition: margin 1s;
     display: inline-block;
     font-weight: 600;
     letter-spacing: 1.7px;
 }
 
-.view_count, .comment_count {
+#moments_body_container .view_count, .comment_count {
     display: inline-block;
     font-weight: 600;
     color: #4A4A4A;
@@ -101,11 +100,11 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     letter-spacing: 1.7px;
 }
 
-.view_count {
+#moments_body_container .view_count {
     padding-left: 18px;
 }
 
-.photos_window {
+#moments_body_container .photos_window {
     transition: height 1s;
     display: block;
     height: 260px;
@@ -115,79 +114,79 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     width: 100%;
 }
 
-.photos_container {
+#moments_body_container .photos_container {
     height: inherit;
     position: absolute;
     right: 18px;
 }
 
-.photos_container .single_photo {
+#moments_body_container .photos_container .single_photo {
     transition: transform 1s, margin 1s;
     -webkit-transition: transform 1s, margin 1s;
     position: absolute;
     top: 0;
 }
 
-.photos_container .single_photo:not(.animating):not(.visible) {
+#moments_body_container .photos_container .single_photo:not(.animating):not(.visible) {
     margin: 0 -62px;
     right: -2px;
     transform: scale(0.8, 0.8);
     -webkit-transform: scale(0.8, 0.8);
 }
 
-.photos_container .single_photo.animating {
+#moments_body_container .photos_container .single_photo.animating {
     margin: 0;
     right: 0;
     transform: scale(1, 1);
     -webkit-transform: scale(1, 1);
 }
 
-.photos_container .single_photo.visible {
+#moments_body_container .photos_container .single_photo.visible {
     margin: 0;
     transform: scale(1, 1);
     -webkit-transform: scale(1, 1);
 }
 
-.photos_container .single_photo img.moment_photo {
+#moments_body_container .photos_container .single_photo img.moment_photo {
     max-height: 260px;
     height: inherit;
 }
 
-.moment_single:not(.focused) .single_photo .comments_container {
+#moments_body_container .moment_single:not(.focused) .single_photo .comments_container {
     display: none;
 }
 
-.single_photo .comments_container {
+#moments_body_container .single_photo .comments_container {
     transition: opacity 1s;
     opacity: 0;
 }
 
-.snap_count {
+#moments_body_container .snap_count {
     font-weight: 500;
 }
 
-.snap_count::after {
+#moments_body_container .snap_count::after {
     content: 'snaps';
     padding-left: 5px;
 }
 
-.single_photo.animating .comments_container {
+#moments_body_container .single_photo.animating .comments_container {
     opacity: 0.5;
 }
 
-.single_photo.focused:not(.animating) .comments_container {
+#moments_body_container .single_photo.focused:not(.animating) .comments_container {
     opacity: 1;
 }
 
-.comment {
+#moments_body_container .comment {
     margin: 5px 0;
 }
 
-.comment.new_comment {
+#moments_body_container .comment.new_comment {
     margin-top: 15px;
 }
 
-.comment .comment_input {
+#moments_body_container .comment .comment_input {
     transition: padding 1s;
     border: none;
     height: 17px;
@@ -198,18 +197,18 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     resize: none;
 }
 
-.comment .comment_input:focus {
+#moments_body_container .comment .comment_input:focus {
     padding-left: 0px;
 }
 
-.single_photo .comments_container .username {
+#moments_body_container .single_photo .comments_container .username {
     color: orange;
     display: inline-block;
     font-weight: 600;
 }
 
 
-.views_comments_container {
+#moments_body_container .views_comments_container {
     transition: height 1s;
     height: 0;
     opacity: 0;
