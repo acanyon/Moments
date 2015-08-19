@@ -12,8 +12,14 @@ $(function () {
 
     var composeView = new CompositionView({
         el: $('#new_moment_container')[0],
-        show_modal: function () { $('body').addClass('show_modal'); },
-        hide_modal: function () { $('body').removeClass('show_modal'); },
+        show_modal: function () {
+            $('body').addClass('show_modal');
+            momentsview.scrollView.lock();
+        },
+        hide_modal: function () {
+            $('body').removeClass('show_modal');
+            momentsview.scrollView.unlock();
+        },
     });
 
     var $footer = $('#footer');
