@@ -11,6 +11,7 @@ var MomentsView = Backbone.View.extend({
     initialize: function (options) {
         this.moments_raw = options.data;
         this.scrollView = options.scrollView;
+        this.$header = options.$header;
         this._focused_moment_id = undefined;
 
         this.render_moments(this.moments_raw);
@@ -21,25 +22,17 @@ var MomentsView = Backbone.View.extend({
     init_collapsable_header: function () {
         var _should_track_scroll = false;
         var _timeout = undefined;
+        var _timeout_interval = 100;
         var adjust_collapsable_header = _.bind(function () {
-            var $header = this.$('.header');
             if (this.scrollView.y < -80) {
-                $header.addClass('collapsed');
+                this.$header.addClass('collapsed');
+                _timeout_interval = 1000; // 1s
             } else {
-                $header.removeClass('collapsed');
+                this.$header.removeClass('collapsed');
             }
-            if (_should_track_scroll) {
-                _timeout = setTimeout(adjust_collapsable_header, 100);
-            }
+            _timeout = setTimeout(adjust_collapsable_header, _timeout_interval);
         }, this);
-        this.scrollView.on('scrollStart', function () {
-            _should_track_scroll = true;
-            clearTimeout(_timeout);
-            adjust_collapsable_header();
-
-        });
-        this.scrollView.on('scrollEnd', function () { _should_track_scroll = false; });
-        this.scrollView.on('scrollCancel', function () { _should_track_scroll = false; });
+        adjust_collapsable_header();
     },
 
 

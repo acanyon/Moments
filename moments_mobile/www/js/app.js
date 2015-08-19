@@ -6,6 +6,7 @@ $(function () {
     var momentsview = new MomentsView({
         data: moments_raw,
         el: $('#moments_body_container')[0],
+        $header: $('#header')
     });
     momentsview.render();
 

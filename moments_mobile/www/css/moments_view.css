@@ -20,7 +20,7 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     opacity: 0.8;
 }
 
-.header.fixed {
+#header.fixed {
     transition: transform 1s, margin 1s, height 1s, opacity 1s;
     -webkit-transition: transform 1s, margin 1s, height 1s, opacity 1s;
     transform: scaleX(1.0);
@@ -34,6 +34,7 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     font-size: 36px;
     height: 65px;
     left: 0;
+    overflow: hidden;
     padding-top: 25px;
     position: fixed;
     right: 0;
@@ -42,7 +43,7 @@ body.show_modal #moments_body_container, body.show_modal .header.fixed {
     z-index: 1;
 }
 
-.header.fixed.collapsed {
+#header.fixed.collapsed {
     height: 10px;
     opacity: 0.7;
 }
