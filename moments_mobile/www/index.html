@@ -18,6 +18,7 @@
         <script type="text/javascript" src="js/lib/underscore-min-1.8.3.js"></script>
         <script type="text/javascript" src="js/lib/backbone-min-1.2.0.js"></script>
         <script type="text/javascript" src="js/lib/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="js/lib/fastclick.min.js"></script>
         <script type="text/javascript" src="js/lib/iscroll-lite.js"></script>
 
         <script src="js/app.js"></script>
@@ -27,13 +28,9 @@
     </head>
 
     <body>
-        <div id="scrollable_body">
-            <div class="header fixed">Moments</div>
-            <div id="moments_body_container"></div>
-        </div>
+        <div id="moments_body_container"></div>
 
-        <div id="new_moment_container" class="slide_in_modal">
-        </div>
+        <div id="new_moment_container" class="slide_in_modal"></div>
 
         <div class="footer fixed" id="footer">
             <div class="home footer_button"></div>
@@ -41,6 +38,13 @@
             <div class="my_profile footer_button"></div>
         </div>
     </body>
+
+    <script id="tpl_moments_wrapper" type="text/template">
+        <div class="header fixed">Moments</div>
+        <div id="scrollable_body">
+            <div class="container"></div>
+        </div>
+    </script>
 
     <script id="tpl_moment_single" type="text/template">
         <div class="moment_single" data-id="<%- d.id %>">
@@ -84,24 +88,19 @@
     </script>
 
     <script id="tpl_composition_view" type="text/template">
-        <div class="heading">
-            <div class="send active">Send</div>
-            <div class="publish">Publish</div>
+        <div class="wrapper">
+            <div class="close_modal"></div>
+            <div class="heading">
+                <div class="heading_option" option="send">Send</div>
+                <div class="heading_option" option="publish">Publish</div>
+            </div>
+            <div class="body_container">
+                <div class="section photos"><div class="photo"></div></div>
+                <div class="section to_wrapper"><label>To:</label><input name="to" placeholder="Logan, 888-888-8888"></div>
+                <div class="section caption_wrapper"><textarea placeholder="Write a caption"></textarea></div>
+            </div>
         </div>
-
-        <div class="photos">
-            <div class="photo"></div>
-        </div>
-
-        <div class="to_wrapper">
-            <label>To:</label>
-            <input name="to" placeholder="Logan, 888-888-8888">
-        </div>
-
-        <div class="caption_wrapper">
-            <textarea placeholder="Write a caption"></textarea>
-        </div>
-
+        <div class="submit_button">Submit</div>
     </script>
 
 </html>

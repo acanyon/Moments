@@ -11,15 +11,43 @@ var MomentsView = Backbone.View.extend({
     initialize: function (options) {
         this.moments_raw = options.data;
         this.scrollView = options.scrollView;
-
         this._focused_moment_id = undefined;
+        this.$el.html(_.template($('#tpl_moments_wrapper').html())());
+
+        this.scrollView = new ScrollView('#scrollable_body'); // scope me
+//        this.init_collapsable_header();
     },
+
+    init_collapsable_header: function () {
+        var _should_track_scroll = false;
+        var _timeout = undefined;
+        var adjust_collapsable_header = _.bind(function () {
+            var $header = this.$('.header');
+            if (this.scrollView.y < -80) {
+                $header.addClass('collapsed');
+            } else {
+                $header.removeClass('collapsed');
+            }
+            if (_should_track_scroll) {
+                _timeout = setTimeout(adjust_collapsable_header, 100);
+            }
+        }, this);
+        this.scrollView.on('scrollStart', function () {
+            _should_track_scroll = true;
+            clearTimeout(_timeout);
+            adjust_collapsable_header();
+
+        });
+        this.scrollView.on('scrollEnd', function () { _should_track_scroll = false; });
+        this.scrollView.on('scrollCancel', function () { _should_track_scroll = false; });
+    },
+
 
     render: function () {
         var moments_html = _.map(this.moments_raw, function (moment_raw) {
             return this.render_moment(moment_raw);
         }, this).join('');
-        this.$el.html(moments_html);
+        this.$('.container').html(moments_html);
 
         setTimeout(_.bind(function () {
             this.scrollView.refresh();

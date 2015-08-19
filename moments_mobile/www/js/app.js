@@ -2,52 +2,23 @@ var moments_raw;
 
 // bootstrap here
 $(function () {
-    var scrollView = new ScrollView('#scrollable_body');
-    init_collapsable_header(scrollView);
 
     var momentsview = new MomentsView({
         data: moments_raw,
         el: $('#moments_body_container')[0],
-        scrollView: scrollView
     });
     momentsview.render();
 
     var composeView = new CompositionView({
-        el: $('#new_moment_container')[0]
+        el: $('#new_moment_container')[0],
+        show_modal: function () { $('body').addClass('show_modal'); },
+        hide_modal: function () { $('body').removeClass('show_modal'); },
     });
 
     var $footer = $('#footer');
-    $footer.find('.publish').on('click', function () {
-        composeView.render();
-        $('body').addClass('show_modal');
-    });
+    $footer.find('.publish').on('click', function () { composeView.show(); } );
 
 });
-
-function init_collapsable_header (scrollView) {
-    var _should_track_scroll = false;
-    var _timeout = undefined;
-    var adjust_collapsable_header = function () {
-        var $header = $('.header');
-        if (scrollView.y < -80) {
-            $header.addClass('collapsed');
-        } else {
-            $header.removeClass('collapsed');
-        }
-        if (_should_track_scroll) {
-            _timeout = setTimeout(adjust_collapsable_header, 100);
-        }
-    };
-
-    scrollView.on('scrollStart', function () {
-        _should_track_scroll = true;
-        clearTimeout(_timeout);
-        adjust_collapsable_header(scrollView);
-
-    });
-    scrollView.on('scrollEnd', function () { _should_track_scroll = false; });
-    scrollView.on('scrollCancel', function () { _should_track_scroll = false; });
-}
 
 moments_raw = [{ 
     id: 109,
