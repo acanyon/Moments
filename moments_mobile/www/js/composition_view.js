@@ -25,7 +25,25 @@ var CompositionView = Backbone.View.extend({
         setTimeout(_.bind(this._adjust_element_size, this));
         cordova.plugins.Keyboard.disableScroll(true);
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+        navigator.camera.getPicture(this.onCaptureSuccess, this.onCaptureFail, {
+                allowEdit: true,
+                correctOrientation: true,
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                targetHeight: 315,
+                targetWidth: 320
+        });
     },
+
+    onCaptureSuccess: function () {
+        debugger;
+    },
+
+    onCaptureFail: function () {
+        debugger;
+    },
+
 
     show: function () {
         this.render();

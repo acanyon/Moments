@@ -2,6 +2,7 @@ var moments_raw;
 
 // bootstrap here
 $(function () {
+    init_cordova_stub();
 
     var momentsview = new MomentsView({
         data: moments_raw,
