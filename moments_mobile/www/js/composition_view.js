@@ -14,6 +14,8 @@ var CompositionView = Backbone.View.extend({
         this._show_modal = options.show_modal;
         this._hide_modal = options.hide_modal;
         this.$el.on('tap click', this._stop_propagation);
+        window.addEventListener('native.keyboardshow', _.bind(this._handle_keyboard_show, this));
+        window.addEventListener('native.keyboardhide', _.bind(this._handle_keyboard_hide, this));
     },
 
     render: function () {
@@ -21,6 +23,8 @@ var CompositionView = Backbone.View.extend({
         this.$el.html(template());
         this.$el.attr('selected_option', 'send');
         setTimeout(_.bind(this._adjust_element_size, this));
+        cordova.plugins.Keyboard.disableScroll(true);
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     },
 
     show: function () {
@@ -30,6 +34,26 @@ var CompositionView = Backbone.View.extend({
 
     hide: function () {
         this._hide_modal();
+    },
+
+    _handle_keyboard_hide: function (event) {
+        this._hide_keyboard_timeout = setTimeout(_.bind(function () {
+            this.$el.removeClass('keyboard_visible');
+        }, this), 50);
+    },
+
+    _handle_keyboard_show: function (event) {
+        clearTimeout(this._hide_keyboard_timeout);
+        this.keyboard_height = event.keyboardHeight;
+        var margin_top = this.$el.hasClass('keyboard_visible') ? 20 : 0;
+        this.$el.addClass('keyboard_visible');
+    },
+
+    _focus_input: function ($input) {
+        this.$focused_input = $input;
+        this.$focused_input.focus();
+        cordova.plugins.Keyboard.disableScroll(true);
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     },
 
     _adjust_element_size: function () {
@@ -43,12 +67,12 @@ var CompositionView = Backbone.View.extend({
 
     _handle_to_input_focus: function (event) {
         this._stop_propagation(event);
-        $(event.currentTarget).find('input').focus();
+        this._focus_input($(event.currentTarget).find('input'));
     },
 
     _handle_caption_focus: function (event) {
         this._stop_propagation(event);
-        $(event.currentTarget).find('textarea').focus();
+        this._focus_input($(event.currentTarget).find('textarea'));
     },
 
     _handle_close_modal: function (event) {

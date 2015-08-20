@@ -27,8 +27,12 @@ $(function () {
         event.preventDefault(); event.stopPropagation();
         composeView.show();
     });
-
 });
+
+function init_cordova_stub () {
+    window.cordova = window.cordova || { plugins: { Keyboard: 
+        { disableScroll: _.noop, hideKeyboardAccessoryBar: _.noop }}};
+}
 
 moments_raw = [{ 
     id: 109,
