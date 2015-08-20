@@ -106,7 +106,21 @@
 }
 
 #new_moment_container .photo {
+    background-color: gray;
+    border-radius: 3px;
+    display: inline-block;
     height: 150px;
+    margin: 15px;
+    text-align: center;
+    width: 140px;
+}
+
+#new_moment_container .photo.add_photo::after {
+    color: white;
+    content: '+';
+    font-size: 100px;
+    height: 150px;
+    width: 150px;
 }
 
 #new_moment_container .to_wrapper label {

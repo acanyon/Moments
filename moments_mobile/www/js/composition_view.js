@@ -8,11 +8,13 @@ var CompositionView = Backbone.View.extend({
         'tap .submit_button': '_handle_submit_button',
         'tap .section.to_wrapper': '_handle_to_input_focus',
         'tap .section.caption_wrapper': '_handle_caption_focus',
+        'tap .photos .add_photo': '_handle_add_photo_click',
     },
 
     initialize: function (options) {
         this._show_modal = options.show_modal;
         this._hide_modal = options.hide_modal;
+        this.photos = [];
         this.$el.on('tap click', this._stop_propagation);
         window.addEventListener('native.keyboardshow', _.bind(this._handle_keyboard_show, this));
         window.addEventListener('native.keyboardhide', _.bind(this._handle_keyboard_hide, this));
@@ -25,8 +27,10 @@ var CompositionView = Backbone.View.extend({
         setTimeout(_.bind(this._adjust_element_size, this));
         cordova.plugins.Keyboard.disableScroll(true);
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    },
 
-        navigator.camera.getPicture(this.onCaptureSuccess, this.onCaptureFail, {
+    _handle_add_photo_click: function (event) {
+        navigator.camera.getPicture(_.bind(this.onCaptureSuccess, this), _.bind(this.onCaptureFail, this), {
                 allowEdit: true,
                 correctOrientation: true,
                 destinationType: Camera.DestinationType.FILE_URI,
@@ -36,8 +40,9 @@ var CompositionView = Backbone.View.extend({
         });
     },
 
-    onCaptureSuccess: function () {
-        debugger;
+    onCaptureSuccess: function (arg1) {
+        this.photos.push(arg1);
+        this.$('.photos').prepend('<div class="photo" style="background-image:url(' + arg1 + ');"></div>');
     },
 
     onCaptureFail: function () {
