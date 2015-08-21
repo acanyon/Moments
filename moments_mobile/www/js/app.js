@@ -39,8 +39,11 @@ function bootstrap () {
 }
 
 function init_cordova_stub () {
-    window.cordova = window.cordova || { plugins: { Keyboard: 
-        { disableScroll: _.noop, hideKeyboardAccessoryBar: _.noop }}};
+    window.is_cordova = !!window.cordova; // used by scroll view
+    window.cordova = window.cordova || { 
+        plugins: { Keyboard: { disableScroll: _.noop,
+                   hideKeyboardAccessoryBar: _.noop }}
+    };
 }
 
 moments_raw = [{ 

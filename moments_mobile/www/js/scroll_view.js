@@ -7,7 +7,14 @@ var ScrollView = function (el, options) {
         mouseWheel: true,
         keyBindings: true,
         useTransition: false,
+        disablePointer: true,
     };
+    if (window.is_cordova) {
+        options.disableMouse = true;
+        console.log('DISABLED MOUSE AND POINTER EVENTS');
+    } else {
+        // TODO - detect device to choose Mouse or Touch
+    }
     _.bind(IScroll, this)(el, options);
 };
 
