@@ -24,7 +24,7 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
     -webkit-transition: margin 1s, height 1s, opacity 1s, width 1s;
     margin: 0 auto;
     width: 100%;
-    background-color: orange;
+    background-color: gold;
     border-bottom: 1px solid #D0D0D0;
     box-shadow: 1px 1px 1px rgba(222, 222, 222, 0.7);
     box-sizing: border-box;
@@ -202,7 +202,7 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
 }
 
 #moments_body_container .single_photo .comments_container .username {
-    color: orange;
+    color: firebrick;
     display: inline-block;
     font-weight: 600;
 }
