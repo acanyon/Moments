@@ -107,12 +107,14 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
     height: 260px;
     overflow-y: hidden;
     overflow-x: scroll;
+    -webkit-overflow-scrolling: touch; 
     margin: 10px 0;
     position: relative;
     width: 100%;
 }
 
 #moments_body_container .photos_container {
+    /* note: no width transformations! will break resize script */
     width: 1000%;
 }
 
@@ -126,11 +128,6 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
 
 #moments_body_container .moment_single .comments_container {
     display: none;
-}
-
-#moments_body_container .single_photo .comments_container {
-    transition: opacity 1s;
-    opacity: 0;
 }
 
 #moments_body_container .snap_count {
@@ -177,12 +174,6 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
     color: firebrick;
     display: inline-block;
     font-weight: 600;
-}
-
-
-#moments_body_container .views_comments_container {
-    transition: height 1s;
-    height: 0;
 }
 
 #moments_body_container.has_focused_moment .moment_single:not(.focused) {

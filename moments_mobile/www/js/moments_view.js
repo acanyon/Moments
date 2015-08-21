@@ -3,9 +3,9 @@
 var MomentsView = Backbone.View.extend({
 
     events: {
-        'touchstart .photos_container': '_handle_tstart_photos',
-        'touchmove .photos_container': '_handle_tmove_photos',
-        'touchend .photos_container': '_handle_tend_photos',
+//        'touchstart .photos_container': '_handle_tstart_photos',
+//        'touchmove .photos_container': '_handle_tmove_photos',
+//        'touchend .photos_container': '_handle_tend_photos',
     },
 
     initialize: function (options) {
@@ -17,6 +17,28 @@ var MomentsView = Backbone.View.extend({
         this.render_moments(this.moments_raw);
         this.scrollView = new ScrollView(this.el); // scope me
         this.init_collapsable_header();
+
+        setTimeout(_.bind(function () { this._resize_containers(); }, this), 100);
+        setTimeout(_.bind(function () { this.moment_focus(90); }, this), 1000);
+    },
+
+    _resize_containers: function () {
+        var $photo_wrappers = this.$('.moment_single .photos_container');
+        _.each($photo_wrappers, function (wrapper) {
+            var MARGIN_RIGHT = 30; // px
+            var $wrapper = $(wrapper);
+            var $last_photo = $wrapper.find('.single_photo').last();
+            var position = $last_photo.position();
+            if (position.top > 0) {
+                console.error('todo - resize container to be larger');
+                $wrapper.css('width', $wrapper.width() * 2);
+                return setTimeout(_.bind(function () { this._resize_containers(); }, this), 100);
+            }
+            $wrapper.css('width', Math.ceil(position.left + $last_photo.width() + MARGIN_RIGHT));
+        }, this);
+
+        // note: any vertical resize needs a refresh on setTimeout
+        setTimeout(_.bind(function () { this.scrollView.refresh(); }, this));
     },
 
     init_collapsable_header: function () {
@@ -42,14 +64,6 @@ var MomentsView = Backbone.View.extend({
             return template({d: moment_info});
         }, this).join('');
         this.$('.container').append(moments_html);
-
-        setTimeout(_.bind(function () {
-            this.scrollView.refresh();
-        }, this), 100);
-
-        setTimeout(_.bind(function () {
-            this.moment_focus(90);
-        }, this), 1000);
     },
 
     moment_focus: function (moment_id) {
