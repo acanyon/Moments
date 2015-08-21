@@ -5,9 +5,12 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		18C554401B86CB130056BB23 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C5543F1B86CB130056BB23 /* Images.xcassets */; };
+		18C554521B87A3FF0056BB23 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C5544E1B87A3FF0056BB23 /* Default~iphone.png */; };
+		18C554531B87A3FF0056BB23 /* Default~iphone@1.5x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C5544F1B87A3FF0056BB23 /* Default~iphone@1.5x.png */; };
+		18C554541B87A3FF0056BB23 /* Default~iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C554501B87A3FF0056BB23 /* Default~iphone@2x.png */; };
+		18C554551B87A3FF0056BB23 /* Default~iphone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C554511B87A3FF0056BB23 /* Default~iphone@3x.png */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		21EDD461992442E78F4A742E /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0EC5D8EA84BD68377CC08 /* CDVLogger.m */; };
@@ -52,6 +55,10 @@
 /* Begin PBXFileReference section */
 		17DF364F25E645CFABFC19B1 /* CDVJpegHeaderWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVJpegHeaderWriter.m; path = "cordova-plugin-camera/CDVJpegHeaderWriter.m"; sourceTree = "<group>"; };
 		18C5543F1B86CB130056BB23 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = moments_mobile/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		18C5544E1B87A3FF0056BB23 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
+		18C5544F1B87A3FF0056BB23 /* Default~iphone@1.5x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone@1.5x.png"; sourceTree = "<group>"; };
+		18C554501B87A3FF0056BB23 /* Default~iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone@2x.png"; sourceTree = "<group>"; };
+		18C554511B87A3FF0056BB23 /* Default~iphone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone@3x.png"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* moments_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moments_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,6 +241,10 @@
 		308D05311370CCF300D202BF /* splash */ = {
 			isa = PBXGroup;
 			children = (
+				18C5544E1B87A3FF0056BB23 /* Default~iphone.png */,
+				18C5544F1B87A3FF0056BB23 /* Default~iphone@1.5x.png */,
+				18C554501B87A3FF0056BB23 /* Default~iphone@2x.png */,
+				18C554511B87A3FF0056BB23 /* Default~iphone@3x.png */,
 			);
 			path = splash;
 			sourceTree = "<group>";
@@ -322,8 +333,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				308D05381370CCF300D202BF /* icon.png in Resources */,
+				18C554551B87A3FF0056BB23 /* Default~iphone@3x.png in Resources */,
 				308D05391370CCF300D202BF /* icon@2x.png in Resources */,
+				18C554531B87A3FF0056BB23 /* Default~iphone@1.5x.png in Resources */,
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
+				18C554521B87A3FF0056BB23 /* Default~iphone.png in Resources */,
+				18C554541B87A3FF0056BB23 /* Default~iphone@2x.png in Resources */,
 				18C554401B86CB130056BB23 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,7 +399,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -417,7 +431,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

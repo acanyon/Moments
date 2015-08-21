@@ -415,3 +415,12 @@
 2015-08-20 22:56:08.219 moments_mobile[44664:9450402] [CDVTimer][TotalPluginStartup] 143.898964ms
 2015-08-20 22:56:08.333 moments_mobile[44664:9450402] Resetting plugins due to page load.
 2015-08-20 22:56:09.186 moments_mobile[44664:9450402] Finished load of: file:///Users/acanyon/Library/Developer/CoreSimulator/Devices/01F7B004-CEB4-470D-9FD7-5B17775A5EB7/data/Containers/Bundle/Application/D1E6D291-151C-48D1-8621-F751DC8B1254/moments_mobile.app/www/index.html
+2015-08-21 11:27:27.773 moments_mobile[50536:9528700] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/acanyon/Library/Developer/CoreSimulator/Devices/01F7B004-CEB4-470D-9FD7-5B17775A5EB7/data/Containers/Data/Application/2AC19006-3FC1-4CA0-AB38-33D0F43AAC1F/Library/Cookies/Cookies.binarycookies
+2015-08-21 11:27:28.055 moments_mobile[50536:9528700] Apache Cordova native platform version 3.8.0 is starting.
+2015-08-21 11:27:28.056 moments_mobile[50536:9528700] Multi-tasking -> Device: YES, App: YES
+2015-08-21 11:27:28.067 moments_mobile[50536:9528700] Unlimited access to network resources
+2015-08-21 11:27:28.488 moments_mobile[50536:9528700] [CDVTimer][splashscreen] 127.894998ms
+2015-08-21 11:27:28.489 moments_mobile[50536:9528700] [CDVTimer][keyboard] 0.068009ms
+2015-08-21 11:27:28.489 moments_mobile[50536:9528700] [CDVTimer][TotalPluginStartup] 128.280997ms
+2015-08-21 11:27:28.628 moments_mobile[50536:9528700] Resetting plugins due to page load.
+2015-08-21 11:27:28.977 moments_mobile[50536:9528700] Finished load of: file:///Users/acanyon/Library/Developer/CoreSimulator/Devices/01F7B004-CEB4-470D-9FD7-5B17775A5EB7/data/Containers/Bundle/Application/258C87BB-183F-4BEB-8B3B-BA259EA7B6EC/moments_mobile.app/www/index.html
