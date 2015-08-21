@@ -1,0 +1,220 @@
+#moments_body_container {
+    transition: margin 1s, width 1s;
+    -webkit-transition: margin 1s, width 1s;
+    margin: 0 auto;
+    background-color: #ffffff;
+    display: block;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+body.show_modal #moments_body_container, body.show_modal #header.fixed {
+    width: 94%;
+    margin: 7px auto;
+    opacity: 0.8;
+}
+
+#header.fixed {
+    transition: margin 1s, height 1s, opacity 1s, width 1s;
+    -webkit-transition: margin 1s, height 1s, opacity 1s, width 1s;
+    margin: 0 auto;
+    width: 100%;
+    background-color: crimson;
+    border-bottom: 1px solid #D0D0D0;
+    box-shadow: 1px 1px 1px rgba(222, 222, 222, 0.7);
+    box-sizing: border-box;
+    color: white;
+    display: block;
+    font-size: 36px;
+    height: 65px;
+    left: 0;
+    overflow: hidden;
+    padding-top: 25px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 1;
+}
+
+#header.fixed.collapsed {
+    height: 10px;
+    opacity: 0.7;
+}
+
+#moments_body_container .container {
+    background-color: white;
+    padding: 60px 0;
+}
+
+#moments_body_container .moment_single {
+    transition: margin 1s, opacity 1s;
+    padding: 30px 0 5px 0;
+}
+
+#moments_body_container .moment_single::after {
+    transition: left 1s, right 1s;
+    background-color: rgba(222, 222, 222, 0.7);
+    content: '';
+    display: block;
+    height: 1px;
+    left: 15px;
+    position: absolute;
+    right: 15px;
+}
+
+#moments_body_container .moment_single.focused::after {
+    left: 0;
+    right: 0;
+}
+
+#moments_body_container .heading {
+    margin: 0 18px;
+    color: #9B9B9B;
+}
+
+#moments_body_container .heading .name_container .username {
+    color: #4A4A4A;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+}
+
+#moments_body_container .heading .name_container .membername {
+    transition: margin 1s;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+}
+
+#moments_body_container .view_count, .comment_count {
+    display: inline-block;
+    font-weight: 600;
+    color: #4A4A4A;
+    padding-bottom: 5px;
+    letter-spacing: 1.7px;
+}
+
+#moments_body_container .view_count {
+    padding-left: 18px;
+}
+
+#moments_body_container .photos_window {
+    transition: height 1s;
+    display: block;
+    height: 260px;
+    overflow: hidden;
+    margin: 10px 0;
+    position: relative;
+    width: 100%;
+}
+
+#moments_body_container .photos_container {
+    height: inherit;
+    position: absolute;
+    right: 18px;
+}
+
+#moments_body_container .photos_container .single_photo {
+    transition: transform 1s, margin 1s;
+    -webkit-transition: transform 1s, margin 1s;
+    position: absolute;
+    top: 0;
+}
+
+#moments_body_container .photos_container .single_photo:not(.animating):not(.visible) {
+    margin: 0 -62px;
+    right: -2px;
+    transform: scale(0.8, 0.8);
+    -webkit-transform: scale(0.8, 0.8);
+}
+
+#moments_body_container .photos_container .single_photo.animating {
+    margin: 0;
+    right: 0;
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+}
+
+#moments_body_container .photos_container .single_photo.visible {
+    margin: 0;
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+}
+
+#moments_body_container .photos_container .single_photo img.moment_photo {
+    max-height: 260px;
+    height: inherit;
+}
+
+#moments_body_container .moment_single:not(.focused) .single_photo .comments_container {
+    display: none;
+}
+
+#moments_body_container .single_photo .comments_container {
+    transition: opacity 1s;
+    opacity: 0;
+}
+
+#moments_body_container .snap_count {
+    font-weight: 500;
+}
+
+#moments_body_container .snap_count::after {
+    content: 'snaps';
+    padding-left: 5px;
+}
+
+#moments_body_container .single_photo.animating .comments_container {
+    opacity: 0.5;
+}
+
+#moments_body_container .single_photo.focused:not(.animating) .comments_container {
+    opacity: 1;
+}
+
+#moments_body_container .comment {
+    margin: 5px 0;
+}
+
+#moments_body_container .comment.new_comment {
+    margin-top: 15px;
+}
+
+#moments_body_container .comment .comment_input {
+    transition: padding 1s;
+    border: none;
+    height: 17px;
+    margin-bottom: -4px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 0 0 10px;
+    resize: none;
+}
+
+#moments_body_container .comment .comment_input:focus {
+    padding-left: 0px;
+}
+
+#moments_body_container .single_photo .comments_container .username {
+    color: crimson;
+    display: inline-block;
+    font-weight: 600;
+}
+
+
+#moments_body_container .views_comments_container {
+    transition: height 1s;
+    height: 0;
+    opacity: 0;
+}
+
+#moments_body_container.has_focused_moment .moment_single:not(.focused) {
+    opacity: 0.4;
+}
+

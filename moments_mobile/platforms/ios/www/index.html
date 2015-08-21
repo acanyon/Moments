@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title></title>
+
+        <link href="css/lib/jquery.mobile-1.4.5.min.css"    rel="stylesheet">
+        <link href="css/normalize.css"    rel="stylesheet">
+        <link href="css/style.css"        rel="stylesheet">
+        <link href="css/moments_view.css" rel="stylesheet">
+        <link href="css/composition_view.css" rel="stylesheet">
+
+        <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+        <link href="css/ionic.app.css" rel="stylesheet">
+        -->
+
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+
+        <script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="js/lib/underscore-min-1.8.3.js"></script>
+        <script type="text/javascript" src="js/lib/backbone-min-1.2.0.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="js/lib/iscroll-lite.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/scroll_view.js"></script>
+        <script src="js/moments_view.js"></script>
+        <script src="js/composition_view.js"></script>
+    </head>
+
+    <body class="platform-ios platform-cordova platform-webview">
+        <div class="header fixed" id="header">Moments</div>
+        <div id="moments_body_container"><div class="container"></div></div>
+        <div id="new_moment_container" class="slide_in_modal"></div>
+        <div class="footer fixed" id="footer">
+            <div class="home footer_button"></div>
+            <div class="publish footer_button"></div>
+            <div class="my_profile footer_button"></div>
+        </div>
+    </body>
+
+    <script id="tpl_moment_single" type="text/template">
+        <div class="moment_single" data-id="<%- d.id %>">
+            <div class="heading">
+                <div class="name_container">
+                    <div class="username"><%- d.username %></div>
+                    <% _.each(d.members, function (membername) { %>
+                        <div class="membername"><%- membername %></div>
+                    <% }); %>
+                </div>
+                <div class="moment_meta"><%- d.location_name %>, <%- d.posted_on %></div>
+                <div class="description"><%- d.description %></div>
+            </div>
+            <div class="photos_window">
+                <div class="photos_container">
+                    <% _.each(d.photos, function (photo) { %>
+                        <div class="single_photo">
+                            <img class="moment_photo" src="<%- photo.src %>">
+                            <div class="comments_container">
+                                <div class="snap_count"><%- photo.snaps %></div>
+                                <% _.each(photo.comments, function (comment) { %>
+                                    <div class="comment">
+                                        <div class="username"><%- comment.username %></div>
+                                        <%- comment.comment %>
+                                    </div>
+                                <% }); %>
+                                <div class="comment new_comment">
+                                    <div class="username"><%- 'logged-in user' %></div>
+                                    <textarea class="comment_input" placeholder="add a comment"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+            <div class="views_comments_container">
+                <div class="view_count"><%- d.view_count %> views. </div>
+                <div class="comment_count"><%- d.comment_count %> comments.</div>
+            </div>
+        </div>
+    </script>
+
+    <script id="tpl_composition_view" type="text/template">
+        <div class="wrapper">
+            <div class="close_modal"></div>
+            <div class="heading">
+                <div class="heading_option" option="send">Send</div>
+                <div class="heading_option" option="publish">Publish</div>
+            </div>
+            <div class="body_container">
+                <div class="section photos"><div class="photo add_photo"></div></div>
+                <div class="section to_wrapper" data-role="fieldcontain">
+                    <label for="to_field">To</label>
+                    <input placeholder="Logan, 888-888-8888" type="text" name="to_field" class="to_field" value=""  />
+                </div>  
+                <div class="section caption_wrapper"><textarea placeholder="Write a caption"></textarea></div>
+            </div>
+        </div>
+        <div class="submit_button">Submit</div>
+    </script>
+
+</html>
+

@@ -1,0 +1,166 @@
+#new_moment_container .wrapper {
+    transition: margin 100ms;
+    -webkit-transition: margin 100ms;
+    background-color: #ffffff;
+    margin-top: 20px;
+    height: 100%;
+    position: relative;
+}
+
+#new_moment_container.keyboard_visible .wrapper {
+    margin-top: 0;
+}
+
+#new_moment_container .heading {
+    border-bottom: 3px solid gray;
+    display: block;
+    height: 60px;
+    position: relative;
+}
+
+#new_moment_container .heading::after {
+    transition: left 1s;
+    -webkit-transition: left 1s;
+    border-bottom: 3px solid crimson;
+    bottom: 0;
+    content: '';
+    left: 0;
+    margin-bottom: -3px;
+    position: absolute;
+    width: 50%;
+}
+
+#new_moment_container .heading_option {
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
+    padding-bottom: 7px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.7px;
+    width: 50%;
+}
+
+
+#new_moment_container .heading_option[option="publish"]{
+    right: 0;
+    left: initial;
+}
+
+#new_moment_container[selected_option="publish"] .heading::after {
+    left: 50%;
+}
+
+#new_moment_container[selected_option="publish"] .heading_option[option="publish"] {
+    color: crimson;
+}
+
+#new_moment_container[selected_option="send"] .heading_option[option="send"] {
+    color: crimson;
+}
+
+
+#new_moment_container .close_modal {
+    transition: opacity 100ms;
+    -webkit-transition: opacity 100ms;
+    display: block;
+    opacity: 1;
+    padding: 10px 10px 30px 40px;
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    z-index: 1;
+}
+
+#new_moment_container .close_modal::after {
+    color: rgb(163, 163, 163);
+    content: '\f00d';
+    display: block;
+    font-family: 'FontAwesome';
+    font-size: 18px;
+}
+
+#new_moment_container.keyboard_visible .close_modal {
+    opacity: 0;
+}
+
+#new_moment_container .body_container {
+    margin: 0 15px;
+    position: relative;
+}
+
+#new_moment_container .section {
+    position: relative;
+}
+
+#new_moment_container .section.to_wrapper::after,
+#new_moment_container .section.photos::after {
+    transition: padding 1s;
+    border-bottom: 1px solid rgba(222, 222, 222, 0.7);
+    content: '';
+    display: block;
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+#new_moment_container .photo {
+    background-color: gray;
+    border-radius: 3px;
+    display: inline-block;
+    height: 150px;
+    margin: 15px;
+    text-align: center;
+    width: 140px;
+}
+
+#new_moment_container .photo.add_photo::after {
+    color: white;
+    content: '+';
+    font-size: 100px;
+    height: 150px;
+    width: 150px;
+}
+
+#new_moment_container .to_wrapper label {
+    color: gray;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#new_moment_container input[name="to_field"] {
+    border: none;
+    outline: none;
+    padding: 15px 0;
+}
+
+#new_moment_container .caption_wrapper {
+    border: none;
+    outline: none;
+}
+
+#new_moment_container textarea {
+    border: none;
+    margin: 0px;
+    min-height: 200px;
+    outline: none;
+    padding: 0;
+    padding: 15px 0;
+    resize: none;
+    width: 100%;
+}
+
+#new_moment_container .submit_button {
+    background-color: crimson;
+    color: white;
+    display: block;
+    font-weight: 600;
+    letter-spacing: 1.3px;
+    padding: 20px 0;
+    text-align: center;
+    text-transform: uppercase;
+    height: 60px;
+    box-sizing: border-box;
+}

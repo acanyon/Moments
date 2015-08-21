@@ -1,0 +1,20 @@
+<ion-view view-title="Dashboard">
+<ion-content class="padding">
+    <ion-list>
+        <ion-item ng-repeat="moment in moments">
+            <div class="heading">
+                {{moment.username}}
+                {{moment.posted_on}}
+                {{moment.description}}
+            </div>
+            <div class="photo_container">
+                <img ng-repeat="photo in moment.photos" src="{{photo.src}}"></img>
+            </div>
+            <div class="moment_meta">
+                {{moment.view_count}} views
+                {{moment.comment_count}} comments
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>
+</ion-view>
