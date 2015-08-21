@@ -2,7 +2,11 @@ var moments_raw;
 
 // bootstrap here
 $(function () {
-    document.addEventListener("deviceready", bootstrap, false);
+    if (window.cordova) {
+        document.addEventListener("deviceready", bootstrap, false);
+    } else {
+        bootstrap();
+    }
 });
 
 function bootstrap () {
