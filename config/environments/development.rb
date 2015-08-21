@@ -31,4 +31,8 @@ Moments::Application.configure do
   ENV['MAILCHIMP_API_KEY'] = '3f01585ff2183ec6bcc52218fe5078b2-us10'
   ENV['MAILCHIMP_LIST_ID'] = '5fd451bdfa'
 
+  # AWS Access Key (dev)
+  ENV['AWS_ACCESS_KEY_ID'] = 'AKIAJRLUSWZBYZS6YS5Q'
+  ENV['AWS_SECRET_ACCESS_KEY'] = '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'
+
 end

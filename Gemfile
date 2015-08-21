@@ -10,19 +10,12 @@ gem 'thin'
 # Use Postgres as the database for Active Record
 gem 'pg'
 
-# Use SCSS and normalize stylesheets
+# templating gems (js, css, html)
+gem 'haml', '~> 4.0.7'
 gem 'sass-rails', '~> 4.0.2'
 gem 'bourbon'
 gem 'normalize-rails'
-gem 'font-awesome-rails'
-
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery  and underscore as the JavaScript library
 gem 'jquery-rails'
 gem 'underscore-rails'
 
@@ -33,5 +26,13 @@ gem 'turbolinks'
 gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 
+# Image upload
+gem 'aws-sdk', '~> 2'
+
 # Use debugger
 gem 'pry', group: [:development, :test]
+
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+

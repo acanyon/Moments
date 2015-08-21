@@ -1,0 +1,52 @@
+hello world.
+
+:javascript
+  $(function () {
+    $.post('/moments', { user_id: 1, photo_count: 3, description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' })
+      .done(function (data) {
+        upload_to_s3(data.photo_urls[0]);
+      })
+      .fail(function (data) {
+        console.error('posting failed!!!');
+      });
+  });
+
+  function upload_to_s3 (signed_s3_url) {
+    var x = new XMLHttpRequest();
+    x.open('GET', '//cors-anywhere.herokuapp.com/http://www.youtube.com/favicon.ico');
+    x.responseType = 'blob';
+    x.onload = function() {
+        var blob = x.response;
+        var fr = new FileReader();
+        fr.onloadend = function() {
+            var dataUrl = fr.result;
+            post_to_signed_url(signed_s3_url, dataUrl);
+
+            // Paint image, as a proof of concept
+            var img = document.createElement('img');
+            img.src = dataUrl;
+            document.body.appendChild(img);
+        };
+        fr.readAsDataURL(blob);
+    };
+    x.send();
+  }
+
+  function post_to_signed_url(signed_url, data) {
+    // TODO - do i need an empty contentType ??? or should i detect ??
+    $.ajax({
+        'type': 'PUT',
+        'url': signed_url,
+        'data': data,
+        'headers': {
+            'Credentials': true,
+        }, 
+        beforeSend: function (request) {
+        //    request.setRequestHeader('Origin', '*');
+        },
+
+      }).done(function () {
+          debugger;
+      });
+  }
+

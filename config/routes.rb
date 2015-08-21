@@ -8,6 +8,7 @@ Moments::Application.routes.draw do
   root 'landing#index'
 
   get    'moments'     => 'moments#index'
+  get    'moments/test'     => 'moments#test_create'
   post   'moments'     => 'moments#create'
   get    'moments/:id' => 'moments#show'
   delete 'moments/:id' => 'moments#destroy'
