@@ -2,6 +2,10 @@ var moments_raw;
 
 // bootstrap here
 $(function () {
+    document.addEventListener("deviceready", bootstrap, false);
+});
+
+function bootstrap () {
     init_cordova_stub();
 
     var momentsview = new MomentsView({
@@ -28,7 +32,7 @@ $(function () {
         event.preventDefault(); event.stopPropagation();
         composeView.show();
     });
-});
+}
 
 function init_cordova_stub () {
     window.cordova = window.cordova || { plugins: { Keyboard: 
