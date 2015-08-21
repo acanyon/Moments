@@ -51,7 +51,6 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
 }
 
 #moments_body_container .moment_single {
-    transition: margin 1s, opacity 1s;
     padding: 30px 0 5px 0;
 }
 
@@ -106,51 +105,26 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
     transition: height 1s;
     display: block;
     height: 260px;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: scroll;
     margin: 10px 0;
     position: relative;
     width: 100%;
 }
 
 #moments_body_container .photos_container {
-    height: inherit;
-    position: absolute;
-    right: 18px;
+    width: 1000%;
 }
 
-#moments_body_container .photos_container .single_photo {
-    transition: transform 1s, margin 1s;
-    -webkit-transition: transform 1s, margin 1s;
-    position: absolute;
-    top: 0;
+#moments_body_container .single_photo {
+    display: inline-block;
 }
 
-#moments_body_container .photos_container .single_photo:not(.animating):not(.visible) {
-    margin: 0 -62px;
-    right: -2px;
-    transform: scale(0.8, 0.8);
-    -webkit-transform: scale(0.8, 0.8);
-}
-
-#moments_body_container .photos_container .single_photo.animating {
-    margin: 0;
-    right: 0;
-    transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);
-}
-
-#moments_body_container .photos_container .single_photo.visible {
-    margin: 0;
-    transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);
-}
-
-#moments_body_container .photos_container .single_photo img.moment_photo {
+#moments_body_container .single_photo img.moment_photo {
     max-height: 260px;
-    height: inherit;
 }
 
-#moments_body_container .moment_single:not(.focused) .single_photo .comments_container {
+#moments_body_container .moment_single .comments_container {
     display: none;
 }
 
@@ -209,7 +183,6 @@ body.show_modal #moments_body_container, body.show_modal #header.fixed {
 #moments_body_container .views_comments_container {
     transition: height 1s;
     height: 0;
-    opacity: 0;
 }
 
 #moments_body_container.has_focused_moment .moment_single:not(.focused) {
