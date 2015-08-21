@@ -6,6 +6,7 @@ var ScrollView = function (el, options) {
         preventDefault: false,
         mouseWheel: true,
         keyBindings: true,
+        useTransition: false,
     };
     _.bind(IScroll, this)(el, options);
 };
