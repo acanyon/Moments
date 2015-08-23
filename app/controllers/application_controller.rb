@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
       end
 
   end
+
+
+  def mobile
+      render inline: '<%= render :file => "/Users/acanyon/moments_photo_share/moments_mobile/www/index", :layout => false %>' 
+  end
+
 end

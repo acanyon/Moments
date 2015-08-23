@@ -9,6 +9,8 @@ Moments::Application.routes.draw do
 
   get    'users/is_signed_in' => 'application#is_signed_in'
 
+  get    'mockups/mobile' => 'application#mobile'
+
   get    'moments'     => 'moments#index'
   get    'moments/test'     => 'moments#test_create'
   post   'moments'     => 'moments#create'

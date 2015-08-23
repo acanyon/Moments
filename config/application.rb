@@ -27,5 +27,8 @@ module Moments
       end
     end
 
+    config.assets.enabled = true
+    config.assets.paths << "#{Rails.root}/moments_mobile/www"
+
   end
 end
