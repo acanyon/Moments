@@ -7,10 +7,10 @@ class ApplicationController < ActionController::Base
       if current_user
           render json: { is_signed_in: true }
       else 
-          result = { 'auth_input' => '<input name="authenticity_token" value=<%= form_authenticity_token %> type="hidden">',
-                     'authenticity_token' => '<%= form_authenticity_token %>',
-                     'is_signed_in' => false }.to_json
-          render inline: result.to_s, content_type: 'application/json'
+          result = "{'auth_input': '<input name=\"authenticity_token\" value=\"<%= form_authenticity_token %>\" type=\"hidden\">', " +
+                    "'authenticity_token': '<%= form_authenticity_token %>'," +
+                    "'is_signed_in': false }"
+          render inline: result, content_type: 'application/json'
       end
 
   end
