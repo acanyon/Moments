@@ -1,0 +1,99 @@
+#signin_flow_container {
+    /*  wooo  */
+}
+
+#signin_flow_container .page {
+    background-color: floralwhite;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+#signin_flow_container .page.hidden {
+    left: 100%;
+}
+
+#signin_flow_container .page .header {
+    background-color: firebrick;
+    color: white;
+    padding: 35px 0 15px;
+    text-align: center;
+}
+
+#signin_flow_container .page .page_back::before {
+    content: '\f053';
+    position: absolute;
+    padding: 20px 20px 10px 20px;
+    margin: -20px 0;
+    left: 0;
+    font-family: 'FontAwesome';
+}
+
+#signin_flow_container .page .cancel_signup::before {
+    content: '\f057';
+    margin: -40px 0;
+    padding: 20px 15px 10px 20px;
+    position: absolute;
+    right: 0;
+    font-family: 'FontAwesome';
+    opacity: 0.5;
+    font-size: 20px;
+}
+
+#signin_flow_container .page input {
+    border: none;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: -1px;
+    outline: none;
+    padding: 17px 20px;
+    width: 100%;
+}
+
+#signin_flow_container .button_primary {
+    background-color: lightblue;
+    bottom: 0;
+    color: white;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 1.7px;
+    padding: 23px 0 25px 0;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+#signin_flow_container .page[page="login_signup"] {
+}
+
+#signin_flow_container .page[page="login_signup"]::before {
+    content: '';
+    display: block;
+    height: 55%;
+    position: relative;
+}
+
+#signin_flow_container .page[page="login_signup"] .button {
+    box-sizing: border-box;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+    padding: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+#signin_flow_container .page[page="login_signup"] .button.login {
+    background-color: teal;
+    color: white;
+}
+
+#signin_flow_container .page[page="login_signup"] .button.signup {
+    background-color: gold;
+}
+

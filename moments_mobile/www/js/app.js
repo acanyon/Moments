@@ -1,4 +1,6 @@
 var moments_raw;
+window.moments_api_url = 'https://boiling-tundra-5465.herokuapp.com';
+// window.moments_api_url = 'http://0.0.0.0:3000';
 
 // bootstrap here
 $(function () {
@@ -9,9 +11,30 @@ $(function () {
     }
 });
 
-function bootstrap () {
+function bootstrap() {
+    var IS_LOGGED_IN = false;
     init_cordova_stub();
 
+    $.get(window.moments_api_url + '/users/is_signed_in')
+        .done(function (response) {
+            if (response.is_signed_in) {
+                renderPrimaryContent();
+            } else {
+                var signinflow = new SigninFlow({
+                    el: $('#signin_flow_container'),
+                    authenticity_token: response.authenticity_token,
+                });
+                signinflow.render();
+                signinflow.on('signin_flow_closed', function () {
+                    renderPrimaryContent();
+                });
+            }
+        }).fail(function () {
+            debugger;
+        });
+}
+
+function renderPrimaryContent () {
     var momentsview = new MomentsView({
         data: moments_raw,
         el: $('#moments_body_container')[0],

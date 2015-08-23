@@ -11,6 +11,8 @@
     -moz-user-select: none;     /* Firefox all */
       -ms-user-select: none;      /* IE 10+ */
         user-select: none;          /* Likely future */  
+
+        text-shadow: none;
 }
 
 input[type="text"],
@@ -22,8 +24,8 @@ body.ui-mobile-viewport {
     background-color: gray;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    overflow: hidden;
     height: 100%;
+    overflow: hidden;
     position: fixed;
 }
 
