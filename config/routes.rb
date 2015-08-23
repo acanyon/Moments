@@ -7,6 +7,8 @@ Moments::Application.routes.draw do
 
   root 'landing#index'
 
+  get    'users/is_signed_in' => 'application#is_signed_in'
+
   get    'moments'     => 'moments#index'
   get    'moments/test'     => 'moments#test_create'
   post   'moments'     => 'moments#create'
