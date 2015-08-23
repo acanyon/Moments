@@ -71,7 +71,8 @@ var SigninFlow = Backbone.View.extend({
                 this.close_signin_flow();
             }, this))
             .fail(_.bind(function (response) {
-                debugger;
+                console.error('COULD NOT LOG IN');
+                this.close_signin_flow();
             }, this));
     },
 

@@ -60,12 +60,15 @@
 
         <div class="page hidden" page="login">
             <div class="header"><div class="button page_back" destination="login_signup"></div>Log In</div>
+            <div class="flash_message"></div>
             <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" method="post">
+                <input class="user_email" name="user[email]" value="" type="text" placeholder="username">
+                <input class="user_password" name="user[password]" type="text" placeholder="password">
+                <div class="hidden_input">
                     <input name="utf8" type="hidden" value="✓">
                     <input name="authenticity_token" type="hidden">
                     <input name="user[remember_me]" type="hidden" value="1">
-                <input class="user_email" name="user[email]" value="" type="text" placeholder="username">
-                <input class="user_password" name="user[password]" type="text" placeholder="password">
+                </div>
                 <div class="button_primary login_button">Submit</div>
             </form>
 
@@ -73,6 +76,7 @@
 
         <div class="page hidden" page="signup_1">
             <div class="header"><div class="button page_back" destination="login_signup"></div>Sign Up</div>
+            <div class="flash_message"></div>
             <input name="email" placeholder="Email" />
             <input name="username" placeholder="Username" >
             <input name="password" placeholder="Password" >
@@ -81,6 +85,7 @@
 
         <div class="page hidden" page="signup_2">
             <div class="header"><div class="cancel_signup" destination="login_signup"></div>Verify Yo-Digits</div>
+            <div class="flash_message"></div>
             <input name="country" placeholder="United States" />
             <input name="phone" placeholder="(000) 000-0000" />
             <div class="button_primary submit_button" destination="signup_3">Submit</div>

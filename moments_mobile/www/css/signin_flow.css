@@ -23,6 +23,22 @@
     text-align: center;
 }
 
+#signin_flow_container .page .flash_message {
+    background-color: red;
+    box-sizing: border-box;
+    color: white;
+    height: 0;
+    overflow: none;
+    padding: 0 20px;
+}
+
+
+#signin_flow_container .page.show_flash .flash_message {
+    transition: height 200ms, padding 200ms;
+    height: auto;
+    padding: 17px 20px;
+}
+
 #signin_flow_container .page .page_back::before {
     content: '\f053';
     position: absolute;
@@ -45,12 +61,16 @@
 
 #signin_flow_container .page input {
     border: none;
-    border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
-    margin-bottom: -1px;
+    border-radius: 0;
+    box-sizing: border-box;
     outline: none;
     padding: 17px 20px;
     width: 100%;
+}
+
+#signin_flow_container .page input:first-child {
+    border-top: 1px solid lightgray;
 }
 
 #signin_flow_container .button_primary {
