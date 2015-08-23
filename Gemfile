@@ -29,6 +29,8 @@ gem 'activeadmin', github: 'activeadmin'
 # Image upload
 gem 'aws-sdk', '~> 2'
 
+gem 'rack-cors', :require => 'rack/cors'
+
 # Use debugger
 gem 'pry', group: [:development, :test]
 
