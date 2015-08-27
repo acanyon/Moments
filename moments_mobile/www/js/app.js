@@ -15,6 +15,8 @@ function bootstrap() {
     var IS_LOGGED_IN = false;
     init_cordova_stub();
 
+    Keyboard.disableScrollingInShrinkView(true);
+
     $.get(window.moments_api_url + '/users/is_signed_in')
         .done(function (response) {
             if (response.is_signed_in) {

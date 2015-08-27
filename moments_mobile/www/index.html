@@ -27,6 +27,7 @@
         <script src="js/moments_view.js"></script>
         <script src="js/composition_view.js"></script>
         <script src="js/signin_flow.js"></script>
+
     </head>
 
     <body>
@@ -55,8 +56,8 @@
             <div class="header"><div class="button page_back" destination="login_signup"></div>Log In</div>
             <div class="flash_message"></div>
             <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" method="post">
-                <input class="user_email" name="user[email]" value="" type="text" placeholder="username">
-                <input class="user_password" name="user[password]" type="text" placeholder="password">
+                <input class="user_email" name="user[email]" value="" type="email" placeholder="username">
+                <input class="user_password" name="user[password]" type="pasword" placeholder="password">
                 <div class="hidden_input">
                     <input name="utf8" type="hidden" value="✓">
                     <input name="authenticity_token" type="hidden">

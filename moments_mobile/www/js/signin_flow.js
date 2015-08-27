@@ -9,6 +9,8 @@ var SigninFlow = Backbone.View.extend({
         'tap .page[page="login"] .button_primary': '_handle_login_attempt',
         'tap .page[page="signup_1"] .button_primary': '_handle_newuser_email_submit',
         'tap .page[page="signup_2"] .button_primary': '_handle_verify_phone_submit',
+        'keydown input': '_handle_keydown',
+        'keyup input': '_handle_keyup',
     },
 
     initialize: function (options) {
@@ -82,6 +84,14 @@ var SigninFlow = Backbone.View.extend({
 
     _handle_newuser_email_submit: function (event) {
         this.focus_page($(event.currentTarget).attr('destination'), false);
+    },
+
+    _handle_keydown: function (event) {
+        event.originalEvent.currentTarget = event.originalEvent.target;
+    },
+
+    _handle_keyup: function (event) {
+        debugger;
     },
 
     _handle_verify_phone_submit: function (event) {

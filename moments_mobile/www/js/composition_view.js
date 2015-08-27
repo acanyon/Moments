@@ -25,8 +25,6 @@ var CompositionView = Backbone.View.extend({
         this.$el.html(template());
         this.$el.attr('selected_option', 'send');
         setTimeout(_.bind(this._adjust_element_size, this));
-        cordova.plugins.Keyboard.disableScroll(true);
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     },
 
     _handle_add_photo_click: function (event) {
